@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 public class Formalites {
-
+  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
