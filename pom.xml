@@ -146,6 +146,7 @@
 <!--			<version>1.11.8</version>-->
 <!--			<scope>runtime</scope>-->
 <!--		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/org.grails.plugins/message-digest -->
 	</dependencies>
 	<build>
 		<plugins>

@@ -73,11 +73,16 @@ public class WebSecurityConfig {
                 //role  count-user
                 .requestMatchers("/api/singfusion/role/add").permitAll()
                 .requestMatchers("/api/singfusion/role/all").permitAll()
-                //acquisition
-
+                //kit
+                .requestMatchers("/api/singfusion/kit/add").permitAll()
+                .requestMatchers("/api/singfusion/kit/all").permitAll()
+                //acces
+                .requestMatchers("/api/singfusion/acces/add").permitAll()
+                .requestMatchers("/api/singfusion/acces/all").permitAll()
                 //verification session identity findbyiduser
                 .requestMatchers("/api/singfusion/verificationidentity/findbyid/{id}").permitAll()
                 .requestMatchers("/api/singfusion/verificationidentity/findbyuser/{id}").permitAll()
+
 //                .requestMatchers("/images/**").permitAll()  getprojetouvert  /update/{id}
 //                .anyRequest().authenticated()
                 .and()
@@ -88,6 +93,7 @@ public class WebSecurityConfig {
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 //lists
+                .requestMatchers("/hashing").permitAll()
                 .requestMatchers("/create-payment-intent").permitAll()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/checkout.js").permitAll()

@@ -1,6 +1,5 @@
 package com.singfusion.singfusion.repository;
 import com.singfusion.singfusion.entity.Kit;
-import com.singfusion.singfusion.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,5 +11,5 @@ public interface KitRepository extends JpaRepository<Kit, Long> {
     Kit findByIdKit(@Param("id") Long id);
 
     @Query("select kit from Kit kit where kit.id != :id")
-    Role findByIdDifferentKit(@Param("id") Long id);
+    Kit findByIdDifferentKit(@Param("id") Long id);
 }
