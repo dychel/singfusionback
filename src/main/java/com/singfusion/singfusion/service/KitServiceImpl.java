@@ -30,7 +30,7 @@ public class KitServiceImpl implements KitService{
             throw new ApiRequestException("Kit non trouvé");
         //enregister les nouvelle infos
         Kit kit = modelMapper.map(kitDTO, Kit.class);
-        kit.setId(kit.getId());
+        kit.setId(kitToUpdate.getId());
         return kitRepository.save(kit);
     }
 

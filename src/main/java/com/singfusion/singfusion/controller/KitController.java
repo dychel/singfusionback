@@ -40,7 +40,7 @@ public class KitController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> deleteKit(@PathVariable(value = "id") Long id) {
         kitService.deleteKitById(id);
         return new ResponseEntity<ResponseMessage>(new ResponseMessage("delete", "kit supprime avec succes"), HttpStatus.OK);
     }

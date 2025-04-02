@@ -37,30 +37,6 @@ public class WebSecurityConfig {
     // Nouveauté de Spring 3: définir SecurityFilterChain en tant que bean qui remplace void configure
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(Customizer.withDefaults())
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/api/interbtp/users/authenticate").permitAll()
-//                        .requestMatchers("/api/interbtp/users/forgot-password").permitAll()
-//                        .requestMatchers("/api/interbtp/users/reset-password").permitAll()
-//                        .requestMatchers("/api/interbtp/users/all").permitAll()
-//                        .requestMatchers("/api/interbtp/role/add").permitAll()
-//                        .requestMatchers("/api/interbtp/users/checkidentity").permitAll()
-//                        .requestMatchers("/api/interbtp/users/checkpassport").permitAll()
-//                        .requestMatchers("/api/interbtp/publication/all").permitAll()
-//                        .requestMatchers("/api/interbtp/publication/add").permitAll()
-//                        .requestMatchers("/api/interbtp/publication/findbyid/{id}").permitAll()
-//                        .requestMatchers("/api/interbtp/publication/update/{id}").permitAll()
-//                        .requestMatchers("/api/interbtp/publication/delete/{id}").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//
-//                .exceptionHandling((exception)-> exception.authenticationEntryPoint(jwtAuthEntryPoint).accessDeniedPage("/error/accedd-denied"))
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-////                .httpBasic(Customizer.withDefaults());
-////                .formLogin(Customizer.withDefaults());
-//        return http.build();
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 //users
@@ -70,6 +46,21 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/users/all").permitAll()
                 .requestMatchers("/api/singfusion/users/update/{id}").permitAll()
                 .requestMatchers("/api/singfusion/users/delete/{id}").permitAll()
+                //kit
+                .requestMatchers("/api/singfusion/kit/add").permitAll()
+                .requestMatchers("/api/singfusion/kit/all").permitAll()
+                .requestMatchers("/api/singfusion/kit/update/{id}").permitAll()
+                .requestMatchers("/api/singfusion/kit/delete/{id}").permitAll()
+                //poste
+                .requestMatchers("/api/singfusion/postetravail/add").permitAll()
+                .requestMatchers("/api/singfusion/postetravail/all").permitAll()
+                .requestMatchers("/api/singfusion/postetravail/update/{id}").permitAll()
+                .requestMatchers("/api/singfusion/postetravail/delete/{id}").permitAll()
+                //poste
+                .requestMatchers("/api/singfusion/outilsinformatique/add").permitAll()
+                .requestMatchers("/api/singfusion/outilsinformatique/all").permitAll()
+                .requestMatchers("/api/singfusion/outilsinformatique/update/{id}").permitAll()
+                .requestMatchers("/api/singfusion/outilsinformatique/delete/{id}").permitAll()
                 //role  count-user
                 .requestMatchers("/api/singfusion/role/add").permitAll()
                 .requestMatchers("/api/singfusion/role/all").permitAll()

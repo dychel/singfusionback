@@ -25,7 +25,7 @@ public class AccesController {
 
     @GetMapping(value ="/all")
     public ResponseEntity<?> getAllAcces() {
-        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des kits ", accesService.listAccess()),
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des acces ", accesService.listAccess()),
                 HttpStatus.OK);
     }
 

@@ -42,7 +42,7 @@ public class AccesServiceImpl implements AccesService {
     public List<Acces> listAccess() {
         List<Acces> listAcces = accesRepository.findAll();
         if (listAcces.isEmpty())
-            throw new ApiRequestException("Pas d'acces enregiter dans la base de donnees");
+            throw new ApiRequestException("Pas d'acces enregister dans la base de donnees");
         return accesRepository.findAll();
     }
 

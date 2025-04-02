@@ -18,16 +18,30 @@ public class Questions {
     private Etapes etape_integration;
     private String description;
     private Date date_ajout;
+    @ManyToOne
+    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Quiz quiz;
 
-    public Questions(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout) {
+    public Questions(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout, Quiz quiz) {
         this.id = id;
         this.contenu = contenu;
         this.etape_integration = etape_integration;
         this.description = description;
         this.date_ajout = date_ajout;
+        this.quiz = quiz;
     }
 
-    public Questions(String contenu, Etapes etape_integration, String description, Date date_ajout) {
+    public Questions(String contenu, Etapes etape_integration, String description, Date date_ajout, Quiz quiz) {
+        this.contenu = contenu;
+        this.etape_integration = etape_integration;
+        this.description = description;
+        this.date_ajout = date_ajout;
+        this.quiz = quiz;
+    }
+
+    public Questions(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout) {
+        this.id = id;
         this.contenu = contenu;
         this.etape_integration = etape_integration;
         this.description = description;

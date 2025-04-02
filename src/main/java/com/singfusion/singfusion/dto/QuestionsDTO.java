@@ -11,4 +11,5 @@ public class QuestionsDTO {
     private Etapes etape_integration;
     private String description;
     private Date date_ajout;
+    private Long quizId;
 }

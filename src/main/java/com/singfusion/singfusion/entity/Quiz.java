@@ -17,16 +17,20 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "quiz_questions",
-            joinColumns = {
-                    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "questions_id", referencedColumnName = "id")
-            }
-    )
-    private List<Questions> lesquestions;
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(name = "quiz_questions",
+//            joinColumns = {
+//                    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "questions_id", referencedColumnName = "id")
+//            }
+//    )
+    private String titre;
+    @OneToMany
+    @JoinColumn(name = "questions_id", referencedColumnName = "id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Questions> questions;
     private String description;
     private Etapes etape_integration;
     private Date date_ajout;
@@ -35,41 +39,38 @@ public class Quiz {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Users users;
 
-    public Quiz(Long id, List<Questions> lesquestions, String description, Etapes etape_integration, Date date_ajout, Users users) {
+    public Quiz(Long id, String titre, List<Questions> questions, String description, Etapes etape_integration, Date date_ajout, Users users) {
         this.id = id;
-        this.lesquestions = lesquestions;
+        this.titre = titre;
+        this.questions = questions;
         this.description = description;
         this.etape_integration = etape_integration;
         this.date_ajout = date_ajout;
         this.users = users;
     }
 
-    public Quiz(List<Questions> lesquestions, String description, Etapes etape_integration, Date date_ajout, Users users) {
-        this.lesquestions = lesquestions;
+    public Quiz(String titre, List<Questions> questions, String description, Etapes etape_integration, Date date_ajout, Users users) {
+        this.titre = titre;
+        this.questions = questions;
         this.description = description;
         this.etape_integration = etape_integration;
         this.date_ajout = date_ajout;
         this.users = users;
     }
 
-    public Quiz(Long id, List<Questions> lesquestions, String description, Etapes etape_integration, Date date_ajout) {
+    public Quiz(Long id, String titre, String description, Etapes etape_integration, Date date_ajout, Users users) {
         this.id = id;
-        this.lesquestions = lesquestions;
-        this.description = description;
-        this.etape_integration = etape_integration;
-        this.date_ajout = date_ajout;
-    }
-
-    public Quiz(Long id, String description, Etapes etape_integration, Date date_ajout, Users users) {
-        this.id = id;
+        this.titre = titre;
         this.description = description;
         this.etape_integration = etape_integration;
         this.date_ajout = date_ajout;
         this.users = users;
     }
 
-    public Quiz(Long id, String description, Etapes etape_integration, Date date_ajout) {
+    public Quiz(Long id, String titre, List<Questions> questions, String description, Etapes etape_integration, Date date_ajout) {
         this.id = id;
+        this.titre = titre;
+        this.questions = questions;
         this.description = description;
         this.etape_integration = etape_integration;
         this.date_ajout = date_ajout;

@@ -25,19 +25,19 @@ public class ResponsabiliteController {
 
     @GetMapping(value ="/all")
     public ResponseEntity<?> getAllRespo() {
-        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des responsabilites ", responsabiliteService.listResponsabilites()),
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des responsabilités ", responsabiliteService.listResponsabilites()),
                 HttpStatus.OK);
     }
 
     @GetMapping("findbyid/{id}")
     public ResponseEntity<ResponseMessage> findRespoById(@PathVariable(value = "id") Long id){
         Responsabilite responsabilite = responsabiliteService.findResponsabiliteById(id);
-        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "responsabilite trouvé", responsabilite), HttpStatus.OK);
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "responsabilité trouvé", responsabilite), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteRespo(@PathVariable(value = "id") Long id) {
         responsabiliteService.deleteResponsabiliteById(id);
-        return new ResponseEntity<ResponseMessage>(new ResponseMessage("delete", "responsabilite supprime avec succes"), HttpStatus.OK);
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("delete", "responsabilite supprimé avec succes"), HttpStatus.OK);
     }
 }

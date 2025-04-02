@@ -1,0 +1,76 @@
+package com.singfusion.singfusion.entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+@Data
+@Entity
+@NoArgsConstructor
+public class PresentationGenerale {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String titre;
+    private String description;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
+    @JoinColumn(name = "contenu_id", referencedColumnName = "id")
+    private Contenus contenus;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Users users;
+    private Date dateAjout;
+    private Date dateMaj;
+    private Boolean isVideoWatched=false;
+    private Boolean isPowerPointRead=false;
+
+    public PresentationGenerale(Long id, String titre, String description, Contenus contenus, Users users, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.contenus = contenus;
+        this.users = users;
+        this.dateAjout = dateAjout;
+        this.dateMaj = dateMaj;
+        this.isVideoWatched = isVideoWatched;
+        this.isPowerPointRead = isPowerPointRead;
+    }
+
+    public PresentationGenerale(String titre, String description, Contenus contenus, Users users, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+        this.titre = titre;
+        this.description = description;
+        this.contenus = contenus;
+        this.users = users;
+        this.dateAjout = dateAjout;
+        this.dateMaj = dateMaj;
+        this.isVideoWatched = isVideoWatched;
+        this.isPowerPointRead = isPowerPointRead;
+    }
+
+    public PresentationGenerale(Long id, String titre, String description, Users users, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.users = users;
+        this.dateAjout = dateAjout;
+        this.dateMaj = dateMaj;
+        this.isVideoWatched = isVideoWatched;
+        this.isPowerPointRead = isPowerPointRead;
+    }
+
+    public PresentationGenerale(Long id, String titre, String description, Contenus contenus, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.contenus = contenus;
+        this.dateAjout = dateAjout;
+        this.dateMaj = dateMaj;
+        this.isVideoWatched = isVideoWatched;
+        this.isPowerPointRead = isPowerPointRead;
+    }
+}

@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class QuizDTO {
     private Long id;
+    private String titre;
     private List<Long> questionsIds;
     private String description;
     private Etapes etape_integration;
