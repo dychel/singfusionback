@@ -43,7 +43,7 @@ public class PresentationGeneraleController {
         Contenus contenus=contenusService.findContenusById(id);
         if (contenus==null)
             throw new ApiRequestException("Ce contenu n'existe pas");
-        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des presentations ", contenusService.findContenusById(id)),
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des presentations ", presentationGeneraleService.findPresentationGeneraleByIdContenus(id)),
                 HttpStatus.OK);
     }
 

@@ -2,6 +2,7 @@ package com.singfusion.singfusion.service;
 import com.singfusion.singfusion.dto.PresentationGeneraleDTO;
 import com.singfusion.singfusion.entity.Contenus;
 import com.singfusion.singfusion.entity.PresentationGenerale;
+import com.singfusion.singfusion.entity.Quiz;
 import com.singfusion.singfusion.entity.Users;
 import com.singfusion.singfusion.exception.ApiRequestException;
 import com.singfusion.singfusion.repository.PresentationGeneraleRepository;
@@ -20,6 +21,8 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
     UserService userService;
     @Autowired
     ContenusService contenusService;
+    @Autowired
+    QuizService quizService;
     @Autowired
     ModelMapper modelMapper;
     Date currentdate;
@@ -51,6 +54,9 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
         // mettre a jour id users si pas null
         if (presentationGeneraleDTO.getUserId() != null)
             presentationGenerale.setUsers(userService.getUserById(presentationGeneraleDTO.getUserId()));
+        // mettre a jour id quiz si pas null
+        if (presentationGeneraleDTO.getQuizId() != null)
+            presentationGenerale.setQuiz(quizService.findQuizById(presentationGeneraleDTO.getQuizId()));
     }
 
     @Override
@@ -64,6 +70,14 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
         if (users == null)
             throw new ApiRequestException("User non trouvé");
         return presentationGeneraleRepository.findPresentationGeneraleByIdUsers(id);
+    }
+
+    @Override
+    public PresentationGenerale findPresentationGeneraleByIdQuiz(Long id) {
+        Quiz quiz = quizService.findQuizById(id);
+        if (quiz == null)
+            throw new ApiRequestException("Quiz non trouvé");
+        return presentationGeneraleRepository.findPresentationGeneraleByIdQuiz(id);
     }
 
     @Override

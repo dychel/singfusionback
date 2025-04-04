@@ -24,50 +24,77 @@ public class PresentationGenerale {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
+    @OneToOne
+    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
+    private Quiz quiz;
+    @ManyToOne
+    @JoinColumn(name = "document_id", referencedColumnName = "id")
+    private Document document;
     private Date dateAjout;
     private Date dateMaj;
     private Boolean isVideoWatched=false;
     private Boolean isPowerPointRead=false;
 
-    public PresentationGenerale(Long id, String titre, String description, Contenus contenus, Users users, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+    public PresentationGenerale(Long id, String titre, String description, Contenus contenus, Users users, Quiz quiz, Document document, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
         this.id = id;
         this.titre = titre;
         this.description = description;
         this.contenus = contenus;
         this.users = users;
+        this.quiz = quiz;
+        this.document = document;
         this.dateAjout = dateAjout;
         this.dateMaj = dateMaj;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
     }
 
-    public PresentationGenerale(String titre, String description, Contenus contenus, Users users, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+    public PresentationGenerale(String titre, String description, Contenus contenus, Users users, Quiz quiz, Document document, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
         this.titre = titre;
         this.description = description;
         this.contenus = contenus;
         this.users = users;
+        this.quiz = quiz;
+        this.document = document;
         this.dateAjout = dateAjout;
         this.dateMaj = dateMaj;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
     }
 
-    public PresentationGenerale(Long id, String titre, String description, Users users, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+    public PresentationGenerale(Long id, String titre, String description, Users users, Quiz quiz, Document document, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
         this.id = id;
         this.titre = titre;
         this.description = description;
         this.users = users;
+        this.quiz = quiz;
+        this.document = document;
         this.dateAjout = dateAjout;
         this.dateMaj = dateMaj;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
     }
 
-    public PresentationGenerale(Long id, String titre, String description, Contenus contenus, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+    public PresentationGenerale(Long id, String titre, String description, Contenus contenus, Users users, Quiz quiz, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
         this.id = id;
         this.titre = titre;
         this.description = description;
         this.contenus = contenus;
+        this.users = users;
+        this.quiz = quiz;
+        this.dateAjout = dateAjout;
+        this.dateMaj = dateMaj;
+        this.isVideoWatched = isVideoWatched;
+        this.isPowerPointRead = isPowerPointRead;
+    }
+
+    public PresentationGenerale(Long id, String titre, String description, Contenus contenus, Users users, Document document, Date dateAjout, Date dateMaj, Boolean isVideoWatched, Boolean isPowerPointRead) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.contenus = contenus;
+        this.users = users;
+        this.document = document;
         this.dateAjout = dateAjout;
         this.dateMaj = dateMaj;
         this.isVideoWatched = isVideoWatched;

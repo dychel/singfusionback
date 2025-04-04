@@ -19,4 +19,7 @@ public interface PresentationGeneraleRepository extends JpaRepository<Presentati
 
     @Query("select presentationGenerale from PresentationGenerale presentationGenerale where presentationGenerale.contenus.id = :id")
     PresentationGenerale findPresentationGeneraleByIdContenus(@Param("id") Long id);
+
+    @Query("select presentationGenerale from PresentationGenerale presentationGenerale where presentationGenerale.quiz.id = :id")
+    PresentationGenerale findPresentationGeneraleByIdQuiz(@Param("id") Long id);
 }

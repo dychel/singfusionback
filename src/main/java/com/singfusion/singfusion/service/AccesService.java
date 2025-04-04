@@ -11,7 +11,6 @@ public interface AccesService {
     Acces saveAcces(AccesDTO accesDTO);
     Acces updateAccess(Long id, AccesDTO accesDTO);
     Acces findAccessById(Long id);
-
     List<Acces> listAccess();
     void deleteAccessById(Long id);
 }

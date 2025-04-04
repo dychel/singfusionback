@@ -1,4 +1,5 @@
 package com.singfusion.singfusion.entity;
+import com.singfusion.singfusion.config.Etapes;
 import com.singfusion.singfusion.config.TypeContenu;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,17 +19,23 @@ public class Contenus {
     private String intutile;
     private TypeContenu typeContenu;
     private Date dateAjout;
+    private Etapes etapes;
+    private Long numeroEtape;
 
-    public Contenus(Long id, String intutile, TypeContenu typeContenu, Date dateAjout) {
+    public Contenus(Long id, String intutile, TypeContenu typeContenu, Date dateAjout, Etapes etapes, Long numeroEtape) {
         this.id = id;
         this.intutile = intutile;
         this.typeContenu = typeContenu;
         this.dateAjout = dateAjout;
+        this.etapes = etapes;
+        this.numeroEtape = numeroEtape;
     }
 
-    public Contenus(String intutile, TypeContenu typeContenu, Date dateAjout) {
+    public Contenus(String intutile, TypeContenu typeContenu, Date dateAjout, Etapes etapes, Long numeroEtape) {
         this.intutile = intutile;
         this.typeContenu = typeContenu;
         this.dateAjout = dateAjout;
+        this.etapes = etapes;
+        this.numeroEtape = numeroEtape;
     }
 }
