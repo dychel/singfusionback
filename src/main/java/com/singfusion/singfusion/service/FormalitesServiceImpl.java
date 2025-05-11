@@ -1,10 +1,8 @@
 package com.singfusion.singfusion.service;
 import com.singfusion.singfusion.dto.FormalitesDTO;
-import com.singfusion.singfusion.entity.Formalites;
-import com.singfusion.singfusion.entity.Quiz;
-import com.singfusion.singfusion.entity.Users;
+import com.singfusion.singfusion.entity.*;
 import com.singfusion.singfusion.exception.ApiRequestException;
-import com.singfusion.singfusion.repository.FormalitesRepository;
+import com.singfusion.singfusion.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +20,50 @@ public class FormalitesServiceImpl implements FormalitesService{
     @Autowired
     QuizService quizService;
     @Autowired
+    AccesRepository accesRepository;
+    @Autowired
+    OutilsInformatiqueReposittory outilsInformatiqueReposittory;
+    @Autowired
+    KitRepository kitRepository;
+    @Autowired
+    ResponsabiliteService responsabiliteService;
+    @Autowired
+    PosteRepository posteRepository;
+    @Autowired
+    ResponsabiliteRepository responsabiliteRepository;
+
+    @Autowired
     ModelMapper modelMapper;
     Date currentdate;
     Long currentTimeInMillis = System.currentTimeMillis();
     @Override
     public Formalites saveFormalites(FormalitesDTO formalitesDTO) {
         Formalites formalites = modelMapper.map(formalitesDTO, Formalites.class);
+
+        if (formalitesDTO.getPostetravailId()!=null)
+                formalites.setAsPoste(true);
+        // acces
+        List<Long> list_dto= formalitesDTO.getAccesId();
+        //
+        if (!list_dto.isEmpty()){
+            List<Acces> List_acces = accesRepository.findAllById(list_dto);
+            formalites.setAcces(List_acces);
+            formalites.setAsAccess(true);
+        }
+        //kit
+        List<Long> list_dto2= formalitesDTO.getKitId();
+        if (!list_dto2.isEmpty()){
+            List<Kit> List_kit = kitRepository.findAllById(list_dto2);
+            formalites.setKit(List_kit);
+            formalites.setAsKit(true);
+        }
+        //outils informatique
+        List<Long> list_dto3= formalitesDTO.getOutilsInformatiqueId();
+        if (!list_dto2.isEmpty()){
+            List<OutilsInformatique> List_outils = outilsInformatiqueReposittory.findAllById(list_dto3);
+            formalites.setOutilsInformatique(List_outils);
+            formalites.setAsKit(true);
+        }
         return formalitesRepository.save(formalites);
     }
 
@@ -40,6 +76,49 @@ public class FormalitesServiceImpl implements FormalitesService{
         Formalites formalites = modelMapper.map(formalitesDTO, Formalites.class);
         formalites.setId(formalitesToUpdate.getId());
         formalites.setDate_ajout(currentdate);
+        //poste
+        Postetravail postetravail = posteRepository.findByIdPosteTravail(formalitesDTO.getPostetravailId());
+        if (formalitesDTO.getPostetravailId()!=null){
+            formalites.setPostetravail(formalites.getPostetravail());
+            formalites.setAsPoste(true);
+        }else {
+            formalites.setPostetravail(postetravail);
+        }
+        //respo
+        Responsabilite responsabilite = responsabiliteRepository.findByIdResponsabilite(formalitesDTO.getResponsabiliteId());
+        if (formalitesDTO.getResponsabiliteId()!=null){
+            formalites.setResponsabilite(formalites.getResponsabilite());
+        }else {
+            formalites.setResponsabilite(responsabilite);
+        }
+        // acces
+        List<Long> list_dto= formalitesDTO.getAccesId();
+        //
+        if (!list_dto.isEmpty()){
+            List<Acces> List_acces = accesRepository.findAllById(list_dto);
+            formalites.setAcces(List_acces);
+            formalites.setAsAccess(true);
+        }else{
+            formalites.setAcces(formalitesToUpdate.getAcces());
+        }
+        //kit
+        List<Long> list_dto2= formalitesDTO.getKitId();
+        if (!list_dto2.isEmpty()){
+            List<Kit> List_kit = kitRepository.findAllById(list_dto2);
+            formalites.setKit(List_kit);
+            formalites.setAsKit(true);
+        }else{
+            formalites.setKit(formalitesToUpdate.getKit());
+        }
+        //outils informatique
+        List<Long> list_dto3= formalitesDTO.getOutilsInformatiqueId();
+        if (!list_dto2.isEmpty()){
+            List<OutilsInformatique> List_outils = outilsInformatiqueReposittory.findAllById(list_dto3);
+            formalites.setOutilsInformatique(List_outils);
+            formalites.setAsKit(true);
+        }else{
+            formalites.setOutilsInformatique(formalitesToUpdate.getOutilsInformatique());
+        }
         // MAJ id users
         updateForeignKeyQuizUsers(formalitesDTO, formalites);
         return formalitesRepository.save(formalites);
@@ -47,11 +126,12 @@ public class FormalitesServiceImpl implements FormalitesService{
 
     private void updateForeignKeyQuizUsers(FormalitesDTO formalitesDTO, Formalites formalites) {
         // mettre a jour id users si pas null
-        if (formalitesDTO.getQuizId() != null )
-            formalites.setUsers(userService.getUserById(formalitesDTO.getUserId()));
-        // mettre a jour id quiz si pas null
-        if (formalitesDTO.getQuizId() != null)
-            formalites.setQuiz(quizService.findQuizById(formalitesDTO.getQuizId()));
+        List<Long> list_dto= formalitesDTO.getAccesId();
+        // Find a list by all id and set questions value in user
+        if (!list_dto.isEmpty()){
+            List<Acces> List_acces = accesRepository.findAllById(list_dto);
+            formalites.setAcces(List_acces);
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.singfusion.singfusion.dto.ResponsabiliteDTO;
 import com.singfusion.singfusion.entity.Kit;
 import com.singfusion.singfusion.entity.Reponses;
 import com.singfusion.singfusion.entity.Responsabilite;
+import com.singfusion.singfusion.entity.Users;
 import com.singfusion.singfusion.exception.ApiRequestException;
 import com.singfusion.singfusion.repository.ResponsabiliteRepository;
 import org.modelmapper.ModelMapper;
@@ -21,12 +22,15 @@ public class ResponsabiliteServiceImpl implements ResponsabiliteService {
     @Autowired
     UserService userService;
 
-
     @Autowired
     ResponsabiliteRepository responsabiliteRepository;
     @Override
     public Responsabilite saveResponsabilite(ResponsabiliteDTO responsabiliteDTO) {
         Responsabilite responsabilite = modelMapper.map(responsabiliteDTO, Responsabilite.class);
+        //Mettre à jour les infos du user
+        if (responsabiliteDTO.getUserId() != null){
+            responsabilite.setUsers(userService.getUserById(responsabiliteDTO.getUserId()));
+        }
         return responsabiliteRepository.save(responsabilite);
     }
 

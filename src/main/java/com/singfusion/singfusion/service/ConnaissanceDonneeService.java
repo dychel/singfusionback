@@ -10,6 +10,7 @@ public interface ConnaissanceDonneeService {
     ConnaissanceDonnee findConnaissanceDonneeById(Long id);
     ConnaissanceDonnee findConnaissanceDonneeByIdUsers(Long id);
     ConnaissanceDonnee findConnaissanceDonneeByIdDocument(Long id);
+    ConnaissanceDonnee findConnaissanceDonneeByIdQuiz(Long id);
     List<ConnaissanceDonnee> listConnaissanceDonnee();
     void deleteConnaissanceDonneeById(Long id);
 }

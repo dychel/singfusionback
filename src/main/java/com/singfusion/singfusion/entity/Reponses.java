@@ -1,5 +1,4 @@
 package com.singfusion.singfusion.entity;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.singfusion.singfusion.config.Etapes;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,13 +17,10 @@ public class Reponses {
     private Etapes etape_integration;
     private String description;
     private Date date_ajout;
+    private Long questions;
+    public Boolean isCorrect = false;
 
-    @ManyToOne
-    @JoinColumn(name = "questions_id", referencedColumnName = "id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Questions questions;
-
-    public Reponses(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout, Questions questions) {
+    public Reponses(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout, Long questions) {
         this.id = id;
         this.contenu = contenu;
         this.etape_integration = etape_integration;
@@ -33,7 +29,7 @@ public class Reponses {
         this.questions = questions;
     }
 
-    public Reponses(String contenu, Etapes etape_integration, String description, Date date_ajout, Questions questions) {
+    public Reponses(String contenu, Etapes etape_integration, String description, Date date_ajout, Long questions) {
         this.contenu = contenu;
         this.etape_integration = etape_integration;
         this.description = description;

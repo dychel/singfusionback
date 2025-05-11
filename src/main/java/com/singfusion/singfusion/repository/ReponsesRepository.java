@@ -12,10 +12,8 @@ public interface ReponsesRepository extends JpaRepository<Reponses, Long> {
 
     @Query("select reponses from Reponses reponses where reponses.id = :id")
     Reponses findByIdReponses(@Param("id") Long id);
-
-    @Query("select reponses from Reponses reponses where reponses.questions.id = :id")
-    List<Reponses> findReponsesByQuestions(@PathVariable("id") Long id);
-
+//    @Query("select reponses from Reponses reponses where reponses.questions.id = :id")
+//    List<Reponses> findReponsesByQuestions(@PathVariable("id") Long id);
     @Query("select reponses from Reponses reponses where reponses.id != :id")
     Reponses findByIdDifferentReponses(@Param("id") Long id);
 }

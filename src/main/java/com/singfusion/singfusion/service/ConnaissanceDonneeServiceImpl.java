@@ -1,11 +1,11 @@
 package com.singfusion.singfusion.service;
 import com.singfusion.singfusion.dto.ConnaissanceDonneeDTO;
-import com.singfusion.singfusion.entity.ConnaissanceDonnee;
-import com.singfusion.singfusion.repository.ProjetRepository;
+import com.singfusion.singfusion.entity.*;
+import com.singfusion.singfusion.exception.ApiRequestException;
+import com.singfusion.singfusion.repository.ConnaissanceDonneeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -19,42 +19,79 @@ public class ConnaissanceDonneeServiceImpl implements ConnaissanceDonneeService 
     @Autowired
     DocumentService documentService;
     @Autowired
-   // Connais projetRepository;
-
+    QuizService quizService;
+    @Autowired
+    private ConnaissanceDonneeRepository connaissanceDonneeRepository;
     Date currentdate;
     Long currentTimeInMillis = System.currentTimeMillis();
     @Override
     public ConnaissanceDonnee saveConnaissanceDonnee(ConnaissanceDonneeDTO connaissanceDonneeDTO) {
-        return null;
+        ConnaissanceDonnee connaissanceDonnee = modelMapper.map(connaissanceDonneeDTO, ConnaissanceDonnee.class);
+        return connaissanceDonneeRepository.save(connaissanceDonnee);
     }
 
     @Override
     public ConnaissanceDonnee updateConnaissanceDonnee(Long id, ConnaissanceDonneeDTO connaissanceDonneeDTO) {
-        return null;
+        ConnaissanceDonnee connaissanceDonneeToUpdate = connaissanceDonneeRepository.findByIdConnaissanceDonnee(id);
+        currentdate = new Date(currentTimeInMillis);
+        if (connaissanceDonneeToUpdate == null)
+            throw new ApiRequestException("Connaissance ID non trouvé");
+        ConnaissanceDonnee connaissanceDonnee = modelMapper.map(connaissanceDonneeDTO, ConnaissanceDonnee.class);
+        connaissanceDonnee.setId(connaissanceDonneeToUpdate.getId());
+        //projet.setDatedebut(currentdate);
+        // MAJ id users
+        updateForeignKeyUsersDocument(connaissanceDonneeDTO, connaissanceDonnee);
+        return connaissanceDonneeRepository.save(connaissanceDonnee);
+    }
+
+    private void updateForeignKeyUsersDocument(ConnaissanceDonneeDTO connaissanceDonneeDTO, ConnaissanceDonnee connaissanceDonnee) {
+        // mettre a jour id Document si pas null
+        if (connaissanceDonneeDTO.getDocumentId() != null )
+            connaissanceDonnee.setDocument(documentService.findDocumentById(connaissanceDonneeDTO.getDocumentId()));
+        // mettre a jour id users si pas null
+        if (connaissanceDonneeDTO.getUserId() != null)
+            connaissanceDonnee.setUsers(userService.getUserById(connaissanceDonneeDTO.getUserId()));
     }
 
     @Override
     public ConnaissanceDonnee findConnaissanceDonneeById(Long id) {
-        return null;
+        return connaissanceDonneeRepository.findByIdConnaissanceDonnee(id);
     }
 
     @Override
     public ConnaissanceDonnee findConnaissanceDonneeByIdUsers(Long id) {
-        return null;
+        Users users = userService.getUserById(id);
+        if (users == null)
+            throw new ApiRequestException("User non trouvé");
+        return connaissanceDonneeRepository.findConnaissanceDonneeByIdUsers(id);
     }
 
     @Override
     public ConnaissanceDonnee findConnaissanceDonneeByIdDocument(Long id) {
-        return null;
+        Document document = documentService.findDocumentById(id);
+        if (document == null)
+            throw new ApiRequestException("Document non trouvé");
+        return connaissanceDonneeRepository.findConnaissanceDonneeByIdDocument(id);
+    }
+
+    @Override
+    public ConnaissanceDonnee findConnaissanceDonneeByIdQuiz(Long id) {
+        Quiz quiz = quizService.findQuizById(id);
+        if (quiz == null)
+            throw new ApiRequestException("Quiz non trouvé");
+        return connaissanceDonneeRepository.findConnaissanceDonneeByIdDocument(id);
     }
 
     @Override
     public List<ConnaissanceDonnee> listConnaissanceDonnee() {
-        return null;
+        return connaissanceDonneeRepository.findAll();
     }
 
     @Override
     public void deleteConnaissanceDonneeById(Long id) {
-
+        ConnaissanceDonnee connaissanceDonnee = connaissanceDonneeRepository.findByIdConnaissanceDonnee(id);
+        if (connaissanceDonnee==null)
+            throw new ApiRequestException("ID Connaissance non trouve");
+        connaissanceDonneeRepository.deleteById(id);
     }
 }

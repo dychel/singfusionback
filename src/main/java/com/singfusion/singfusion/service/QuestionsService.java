@@ -9,6 +9,6 @@ public interface QuestionsService {
     Questions updateQuestions(Long id, QuestionsDTO questionsDTO);
     Questions findQuestionsById(Long id);
     List<Questions> listQuestions();
-    List<Questions> listQuestionsByQuiz(Long id);
+   // List<Questions> listQuestionsByQuiz(Long id);
     void deleteQuestionsById(Long id);
 }

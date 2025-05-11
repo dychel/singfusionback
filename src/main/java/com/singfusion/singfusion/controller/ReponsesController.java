@@ -26,19 +26,16 @@ public class ReponsesController {
         return new ResponseEntity<>(new ResponseMessage("ok", "Reponse "+ reponsesDTO.getContenu()+ " Créé avec succès", reponsesDTO),
                 HttpStatus.OK);
     }
-
     @GetMapping(value ="/all")
     public ResponseEntity<?> getAllReponses() {
         return new ResponseEntity<>(new ResponseMessage("ok", "Liste des Reponses ", reponsesService.listReponses()),
                 HttpStatus.OK);
     }
-
     @GetMapping("findbyid/{id}")
     public ResponseEntity<ResponseMessage> findReponsesById(@PathVariable(value = "id") Long id){
         Reponses reponses = reponsesService.findReponsesById(id);
         return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Reponses trouvée", reponses), HttpStatus.OK);
     }
-
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteReponses(@PathVariable(value = "id") Long id) {
         reponsesService.deleteReponsesById(id);

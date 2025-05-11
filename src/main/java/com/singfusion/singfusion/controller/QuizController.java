@@ -38,6 +38,12 @@ public class QuizController {
         return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Quiz trouvé", quiz), HttpStatus.OK);
     }
 
+    @GetMapping("findbyetapes/{etape_integration}")
+    public ResponseEntity<ResponseMessage> findByEtapes(@PathVariable(value = "etape_integration") String etape_integration){
+        Quiz quiz = quizService.getByEtapes(etape_integration);
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Quiz trouvé", quiz), HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteQuiz(@PathVariable(value = "id") Long id) {
         quizService.deleteQuizById(id);

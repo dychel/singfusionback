@@ -4,7 +4,6 @@ import java.util.Date;
 
 @Data
 public class ResponsabiliteDTO {
-
     private Long id;
     private String titre;
     private Long userId;

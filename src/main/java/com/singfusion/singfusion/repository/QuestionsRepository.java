@@ -15,6 +15,7 @@ public interface QuestionsRepository extends JpaRepository<Questions, Long> {
     Questions findByIdQuestions(@Param("id") Long id);
     @Query("select questions from Questions questions where questions.id != :id")
     Questions findByIdDifferentQuestions(@Param("id") Long id);
-    @Query("select questions from Questions questions where questions.quiz.id = :id")
-    List<Questions> findByQuestionsByIdQuiz(@Param("id") Long id);
+
+//    @Query("select questions from Questions questions where questions.quiz.id = :id")
+//    List<Questions> findByQuestionsByIdQuiz(@Param("id") Long id);
 }

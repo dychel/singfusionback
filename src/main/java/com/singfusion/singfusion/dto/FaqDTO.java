@@ -12,7 +12,7 @@ public class FaqDTO {
     private String titre;
     private String question;
     private String reponses;
-    private Long poserPar;
+    private Long userId;
     private Long reponduPar;
     private Date date;
 }

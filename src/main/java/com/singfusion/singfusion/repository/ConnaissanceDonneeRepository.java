@@ -16,4 +16,6 @@ public interface ConnaissanceDonneeRepository extends JpaRepository<Connaissance
     ConnaissanceDonnee findConnaissanceDonneeByIdUsers(@Param("id") Long id);
     @Query("select connaissanceDonnee from ConnaissanceDonnee connaissanceDonnee where connaissanceDonnee.quiz.id = :id")
     ConnaissanceDonnee findConnaissanceDonneeByIdQuiz(@Param("id") Long id);
+    @Query("select connaissanceDonnee from ConnaissanceDonnee connaissanceDonnee where connaissanceDonnee.document.id = :id")
+    ConnaissanceDonnee findConnaissanceDonneeByIdDocument(@Param("id") Long id);
 }

@@ -11,7 +11,7 @@ public class RapportEtonnementDTO {
     private Long id;
     private String titre;
     private String description;
-    private Long users;
+    private Long usersId;
     private Long documentId;
     private Long quizId;
     private Date DateAjout;

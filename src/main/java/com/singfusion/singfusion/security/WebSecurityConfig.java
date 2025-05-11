@@ -40,7 +40,7 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 //users
-                .requestMatchers("/api/singfusion/users/authenticate").permitAll()
+                .requestMatchers("/api/singfusion/users/curr-user-details").permitAll()
                 .requestMatchers("/api/singfusion/users/logout/{id}").permitAll()
                 .requestMatchers("/api/singfusion/users/add").permitAll()
                 .requestMatchers("/api/singfusion/users/all").permitAll()
@@ -63,17 +63,53 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/outilsinformatique/delete/{id}").permitAll()
                 //role  count-user
                 .requestMatchers("/api/singfusion/role/add").permitAll()
-                .requestMatchers("/api/singfusion/role/all").permitAll()
                 //kit
                 .requestMatchers("/api/singfusion/kit/add").permitAll()
                 .requestMatchers("/api/singfusion/kit/all").permitAll()
                 //acces
                 .requestMatchers("/api/singfusion/acces/add").permitAll()
                 .requestMatchers("/api/singfusion/acces/all").permitAll()
-                //verification session identity findbyiduser
+                //questions
+                .requestMatchers("/api/singfusion/questions/add").permitAll()
+                .requestMatchers("/api/singfusion/questions/all").permitAll()
+                //reponses
+                .requestMatchers("/api/singfusion/reponses/add").permitAll()
+                .requestMatchers("/api/singfusion/reponses/all").permitAll()
+                //quiz
+                .requestMatchers("/api/singfusion/quiz/add").permitAll()
+                .requestMatchers("/api/singfusion/quiz/all").permitAll()
+                .requestMatchers("/api/singfusion/quiz/findbyetapes/{etape_integration}").permitAll()
+                //formalites
+                .requestMatchers("/api/singfusion/formalites/add").permitAll()
+                .requestMatchers("/api/singfusion/formalites/all").permitAll()
+                .requestMatchers("/api/singfusion/formalites/update/{id}").permitAll()
+                .requestMatchers("/api/singfusion/formalites/findbyuser/{id}").permitAll()
+
+                //reponses
+                .requestMatchers("/api/singfusion/reponses/add").permitAll()
+                .requestMatchers("/api/singfusion/reponses/all").permitAll()
+
+                //responsabilite
+                .requestMatchers("/api/singfusion/responsabilite/add").permitAll()
+                .requestMatchers("/api/singfusion/responsabilite/all").permitAll()
+
+                //presentation generale
+                .requestMatchers("/api/singfusion/presentationgenerale/add").permitAll()
+                .requestMatchers("/api/singfusion/presentationgenerale/all").permitAll()
+                .requestMatchers("/api/singfusion/presentationgenerale/findbyuser/{id}").permitAll()
+
+                //presentation generale  contenus
+                .requestMatchers("/api/singfusion/document/add").permitAll()
+                .requestMatchers("/api/singfusion/document/all").permitAll()
+                .requestMatchers("/api/singfusion/document/findbyuser/{id}").permitAll()
+
+                //presentation generale  contenus
+                .requestMatchers("/api/singfusion/contenus/add").permitAll()
+                .requestMatchers("/api/singfusion/contenus/all").permitAll()             //verification session identity findbyiduser
+                .requestMatchers("/api/singfusion/contenus/findbyuser/{id}").permitAll()
+
                 .requestMatchers("/api/singfusion/verificationidentity/findbyid/{id}").permitAll()
                 .requestMatchers("/api/singfusion/verificationidentity/findbyuser/{id}").permitAll()
-
 //                .requestMatchers("/images/**").permitAll()  getprojetouvert  /update/{id}
 //                .anyRequest().authenticated()
                 .and()
@@ -84,6 +120,11 @@ public class WebSecurityConfig {
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 //lists
+                .requestMatchers("/api/singfusion/role/all").permitAll()
+                .requestMatchers("/api/singfusion/users/authenticate").permitAll()
+                .requestMatchers("/api/singfusion/users/logout/{id}").permitAll()
+                .requestMatchers("/api/singfusion/users/add").permitAll()
+                .requestMatchers("/api/singfusion/users/all").permitAll()
                 .requestMatchers("/hashing").permitAll()
                 .requestMatchers("/create-payment-intent").permitAll()
                 .requestMatchers("/").permitAll()

@@ -10,7 +10,7 @@ public class QuizDTO {
     private String titre;
     private List<Long> questionsIds;
     private String description;
-    private Etapes etape_integration;
+    private String etape_integration;
     private Date date_ajout;
     private Long userId;
 }

@@ -19,10 +19,10 @@ public class Contenus {
     private String intutile;
     private TypeContenu typeContenu;
     private Date dateAjout;
-    private Etapes etapes;
+    private String etapes;
     private Long numeroEtape;
 
-    public Contenus(Long id, String intutile, TypeContenu typeContenu, Date dateAjout, Etapes etapes, Long numeroEtape) {
+    public Contenus(Long id, String intutile, TypeContenu typeContenu, Date dateAjout, String etapes, Long numeroEtape) {
         this.id = id;
         this.intutile = intutile;
         this.typeContenu = typeContenu;
@@ -31,7 +31,7 @@ public class Contenus {
         this.numeroEtape = numeroEtape;
     }
 
-    public Contenus(String intutile, TypeContenu typeContenu, Date dateAjout, Etapes etapes, Long numeroEtape) {
+    public Contenus(String intutile, TypeContenu typeContenu, Date dateAjout, String etapes, Long numeroEtape) {
         this.intutile = intutile;
         this.typeContenu = typeContenu;
         this.dateAjout = dateAjout;

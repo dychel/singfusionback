@@ -16,12 +16,18 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titre;
-    @OneToMany
-    @JoinColumn(name = "questions_id", referencedColumnName = "id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "quiz_question",
+            joinColumns = {
+                    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "question_id", referencedColumnName = "id")
+            }
+    )
     private List<Questions> questions;
     private String description;
-    private Etapes etape_integration;
+    private String etape_integration;
     private Date date_ajout;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -29,7 +35,7 @@ public class Quiz {
     private Users users;
     private Long totalQuestion;
 
-    public Quiz(Long id, String titre, List<Questions> questions, String description, Etapes etape_integration, Date date_ajout, Users users, Long totalQuestion) {
+    public Quiz(Long id, String titre, List<Questions> questions, String description, String etape_integration, Date date_ajout, Users users, Long totalQuestion) {
         this.id = id;
         this.titre = titre;
         this.questions = questions;
@@ -40,7 +46,7 @@ public class Quiz {
         this.totalQuestion = totalQuestion;
     }
 
-    public Quiz(String titre, List<Questions> questions, String description, Etapes etape_integration, Date date_ajout, Users users, Long totalQuestion) {
+    public Quiz(String titre, List<Questions> questions, String description, String etape_integration, Date date_ajout, Users users, Long totalQuestion) {
         this.titre = titre;
         this.questions = questions;
         this.description = description;
@@ -50,7 +56,7 @@ public class Quiz {
         this.totalQuestion = totalQuestion;
     }
 
-    public Quiz(Long id, String titre, String description, Etapes etape_integration, Date date_ajout, Users users, Long totalQuestion) {
+    public Quiz(Long id, String titre, String description, String etape_integration, Date date_ajout, Users users, Long totalQuestion) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -60,7 +66,7 @@ public class Quiz {
         this.totalQuestion = totalQuestion;
     }
 
-    public Quiz(Long id, String titre, List<Questions> questions, String description, Etapes etape_integration, Date date_ajout, Long totalQuestion) {
+    public Quiz(Long id, String titre, List<Questions> questions, String description, String etape_integration, Date date_ajout, Long totalQuestion) {
         this.id = id;
         this.titre = titre;
         this.questions = questions;

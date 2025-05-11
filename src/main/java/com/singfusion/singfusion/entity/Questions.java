@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,26 +19,32 @@ public class Questions {
     private Etapes etape_integration;
     private String description;
     private Date date_ajout;
-    @ManyToOne
-    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Quiz quiz;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "question_reponses",
+            joinColumns = {
+                    @JoinColumn(name = "question_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "reponse_id", referencedColumnName = "id")
+            }
+    )
+    private List<Reponses> reponses;
 
-    public Questions(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout, Quiz quiz) {
+    public Questions(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout, List<Reponses> reponses) {
         this.id = id;
         this.contenu = contenu;
         this.etape_integration = etape_integration;
         this.description = description;
         this.date_ajout = date_ajout;
-        this.quiz = quiz;
+        this.reponses = reponses;
     }
 
-    public Questions(String contenu, Etapes etape_integration, String description, Date date_ajout, Quiz quiz) {
+    public Questions(String contenu, Etapes etape_integration, String description, Date date_ajout, List<Reponses> reponses) {
         this.contenu = contenu;
         this.etape_integration = etape_integration;
         this.description = description;
         this.date_ajout = date_ajout;
-        this.quiz = quiz;
+        this.reponses = reponses;
     }
 
     public Questions(Long id, String contenu, Etapes etape_integration, String description, Date date_ajout) {
@@ -47,4 +54,5 @@ public class Questions {
         this.description = description;
         this.date_ajout = date_ajout;
     }
+
 }

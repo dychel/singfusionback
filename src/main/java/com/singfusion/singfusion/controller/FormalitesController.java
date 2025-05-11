@@ -36,6 +36,12 @@ public class FormalitesController {
                 HttpStatus.OK);
     }
 
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<?> updateFormalites(@PathVariable(value = "id" ) Long id, @RequestBody FormalitesDTO formalitesDTO){
+        formalitesService.updateFormalites(id, formalitesDTO);
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Formalite Updated!", formalitesService.updateFormalites(id, formalitesDTO)), HttpStatus.OK);
+    }
+
     @GetMapping(value ="/all")
     public ResponseEntity<?> getAllFormalites() {
         return new ResponseEntity<>(new ResponseMessage("ok", "Liste des formalites ", formalitesService.listFormalites()),

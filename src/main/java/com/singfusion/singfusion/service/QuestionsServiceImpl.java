@@ -3,8 +3,10 @@ import com.singfusion.singfusion.dto.FormalitesDTO;
 import com.singfusion.singfusion.dto.QuestionsDTO;
 import com.singfusion.singfusion.entity.Formalites;
 import com.singfusion.singfusion.entity.Questions;
+import com.singfusion.singfusion.entity.Reponses;
 import com.singfusion.singfusion.exception.ApiRequestException;
 import com.singfusion.singfusion.repository.QuestionsRepository;
+import com.singfusion.singfusion.repository.ReponsesRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +19,30 @@ public class QuestionsServiceImpl implements QuestionsService {
     QuestionsRepository questionsRepository;
     @Autowired
     QuizService quizService;
+
+    @Autowired
+    ReponsesRepository reponsesRepository;
     @Autowired
     ModelMapper modelMapper;
     @Override
     public Questions saveQuestions(QuestionsDTO questionsDTO) {
         Questions questions = modelMapper.map(questionsDTO, Questions.class);
+        List<Long> list_dto= questionsDTO.getReponsesIDs();
+        // Find a list by all id and set speciality value in user
+        if (!list_dto.isEmpty()){
+            List<Reponses> List_reponses = reponsesRepository.findAllById(list_dto);
+            questions.setReponses(List_reponses);
+        }
         return questionsRepository.save(questions);
     }
 
     private void updateForeignKeyQuiz(QuestionsDTO questionsDTO, Questions questions) {
-        // mettre a jour id users si pas null
-        if (questionsDTO.getQuizId()!= null )
-            questions.setQuiz(quizService.findQuizById(questionsDTO.getQuizId()));
+        List<Long> list_dto= questionsDTO.getReponsesIDs();
+        // Find a list by all id and set speciality value in user
+        if (!list_dto.isEmpty()){
+            List<Reponses> List_reponses = reponsesRepository.findAllById(list_dto);
+            questions.setReponses(List_reponses);
+        }
     }
 
     @Override
@@ -52,13 +66,13 @@ public class QuestionsServiceImpl implements QuestionsService {
         return questionsRepository.findAll();
     }
 
-    @Override
-    public List<Questions> listQuestionsByQuiz(Long id) {
-        List<Questions> questions = questionsRepository.findByQuestionsByIdQuiz(id);
-        if (questions==null)
-            throw new ApiRequestException("Pas de question pour ce quiz");
-        return questions;
-    }
+//    @Override
+//    public List<Questions> listQuestionsByQuiz(Long id) {
+//        List<Questions> questions = questionsRepository.findByQuestionsByIdQuiz(id);
+//        if (questions==null)
+//            throw new ApiRequestException("Pas de question pour ce quiz");
+//        return questions;
+//    }
 
     @Override
     public void deleteQuestionsById(Long id) {

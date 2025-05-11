@@ -1,26 +1,65 @@
 package com.singfusion.singfusion.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Formalites {
   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "users_id", referencedColumnName = "id")
     private Users users;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "formalite_acces",
+            joinColumns = {
+                    @JoinColumn(name = "formalite_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "acces_id", referencedColumnName = "id")
+            }
+    )
+    private List<Acces> acces;
+    @ManyToOne
+    @JoinColumn(name = "responsabilite_id", referencedColumnName = "id")
+    private Responsabilite responsabilite;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "formalite_outils",
+            joinColumns = {
+                    @JoinColumn(name = "formalite_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "outils_id", referencedColumnName = "id")
+            }
+    )
+    private List<OutilsInformatique> outilsInformatique;
+    @ManyToOne
+    @JoinColumn(name = "postetravail_id", referencedColumnName = "id")
+    private Postetravail postetravail;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "formalite_kit",
+            joinColumns = {
+                    @JoinColumn(name = "formalite_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "kit_id", referencedColumnName = "id")
+            }
+    )
+    private List<Kit> kit;
     private String titre;
     private String descritpion;
     private Date date_ajout;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
     private Boolean AsKit=false;
@@ -29,74 +68,4 @@ public class Formalites {
     private Boolean AsPoste=false;
     private Boolean AsVisited=false;
     private Boolean IsFinished=false;
-
-    public Formalites(Long id, Users users, String titre, String descritpion, Date date_ajout, Quiz quiz, Boolean asKit, Boolean asAccess, Boolean asOutilsInfo, Boolean asPoste, Boolean asVisited, Boolean isFinished) {
-        this.id = id;
-        this.users = users;
-        this.titre = titre;
-        this.descritpion = descritpion;
-        this.date_ajout = date_ajout;
-        this.quiz = quiz;
-        AsKit = asKit;
-        AsAccess = asAccess;
-        AsOutilsInfo = asOutilsInfo;
-        AsPoste = asPoste;
-        AsVisited = asVisited;
-        IsFinished = isFinished;
-    }
-
-    public Formalites(Users users, String titre, String descritpion, Date date_ajout, Quiz quiz, Boolean asKit, Boolean asAccess, Boolean asOutilsInfo, Boolean asPoste, Boolean asVisited, Boolean isFinished) {
-        this.users = users;
-        this.titre = titre;
-        this.descritpion = descritpion;
-        this.date_ajout = date_ajout;
-        this.quiz = quiz;
-        AsKit = asKit;
-        AsAccess = asAccess;
-        AsOutilsInfo = asOutilsInfo;
-        AsPoste = asPoste;
-        AsVisited = asVisited;
-        IsFinished = isFinished;
-    }
-
-    public Formalites(Long id, String titre, String descritpion, Date date_ajout, Boolean asKit, Boolean asAccess, Boolean asOutilsInfo, Boolean asPoste, Boolean asVisited, Boolean isFinished) {
-        this.id = id;
-        this.titre = titre;
-        this.descritpion = descritpion;
-        this.date_ajout = date_ajout;
-        AsKit = asKit;
-        AsAccess = asAccess;
-        AsOutilsInfo = asOutilsInfo;
-        AsPoste = asPoste;
-        AsVisited = asVisited;
-        IsFinished = isFinished;
-    }
-
-    public Formalites(Long id, Users users, String titre, String descritpion, Date date_ajout, Boolean asKit, Boolean asAccess, Boolean asOutilsInfo, Boolean asPoste, Boolean asVisited, Boolean isFinished) {
-        this.id = id;
-        this.users = users;
-        this.titre = titre;
-        this.descritpion = descritpion;
-        this.date_ajout = date_ajout;
-        AsKit = asKit;
-        AsAccess = asAccess;
-        AsOutilsInfo = asOutilsInfo;
-        AsPoste = asPoste;
-        AsVisited = asVisited;
-        IsFinished = isFinished;
-    }
-
-    public Formalites(Long id, String titre, String descritpion, Date date_ajout, Quiz quiz, Boolean asKit, Boolean asAccess, Boolean asOutilsInfo, Boolean asPoste, Boolean asVisited, Boolean isFinished) {
-        this.id = id;
-        this.titre = titre;
-        this.descritpion = descritpion;
-        this.date_ajout = date_ajout;
-        this.quiz = quiz;
-        AsKit = asKit;
-        AsAccess = asAccess;
-        AsOutilsInfo = asOutilsInfo;
-        AsPoste = asPoste;
-        AsVisited = asVisited;
-        IsFinished = isFinished;
-    }
 }

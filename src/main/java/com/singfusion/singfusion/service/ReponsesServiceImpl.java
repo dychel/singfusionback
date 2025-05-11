@@ -23,13 +23,17 @@ public class ReponsesServiceImpl implements ReponsesService {
     @Override
     public Reponses saveReponses(ReponsesDTO reponsesDTO) {
         Reponses reponses = modelMapper.map(reponsesDTO, Reponses.class);
+        //Mettre à jour les infos du user
+//        if (reponses.getQuestions() != null){
+//            reponses.setQuestions(questionsRepository.findByIdQuestions(reponsesDTO.getQuestionId()));
+//        }
         return reponsesRepository.save(reponses);
     }
 
     private void updateForeignKeyReponses(ReponsesDTO reponsesDTO, Reponses reponses) {
         // mettre a jour id users si pas null
-        if (reponsesDTO.getQuestionId()!= null )
-            reponses.setQuestions(questionsRepository.findByIdQuestions(reponsesDTO.getQuestionId()));
+//        if (reponsesDTO.getQuestionId()!= null )
+//            reponses.setQuestions(questionsRepository.findByIdQuestions(reponsesDTO.getQuestionId()));
     }
 
     @Override
@@ -52,7 +56,7 @@ public class ReponsesServiceImpl implements ReponsesService {
 
     @Override
     public List<Reponses> findReponsesByIdQuestions(Long id) {
-        return reponsesRepository.findReponsesByQuestions(id);
+        return null;
     }
 
     @Override

@@ -29,6 +29,12 @@ public class ResponsabiliteController {
                 HttpStatus.OK);
     }
 
+    @GetMapping(value ="/updade/{id}")
+    public ResponseEntity<?> getUpdate() {
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des responsabilités ", responsabiliteService.listResponsabilites()),
+                HttpStatus.OK);
+    }
+
     @GetMapping("findbyid/{id}")
     public ResponseEntity<ResponseMessage> findRespoById(@PathVariable(value = "id") Long id){
         Responsabilite responsabilite = responsabiliteService.findResponsabiliteById(id);

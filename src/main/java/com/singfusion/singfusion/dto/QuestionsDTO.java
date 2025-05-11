@@ -2,6 +2,7 @@ package com.singfusion.singfusion.dto;
 import com.singfusion.singfusion.config.Etapes;
 import lombok.Data;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class QuestionsDTO {
@@ -12,4 +13,5 @@ public class QuestionsDTO {
     private String description;
     private Date date_ajout;
     private Long quizId;
+    private List<Long> reponsesIDs;
 }

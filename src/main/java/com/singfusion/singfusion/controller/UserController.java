@@ -61,10 +61,10 @@ public class UserController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 //
         //username remplacer par l'email
-        logger.info("UserController: authenticateUser debut d'execution...");
+//        logger.info("UserController: authenticateUser debut d'execution...");
        // logger.info("UserController: authenticateUser request {} ", Mapper.mapToJsonString(loginRequest.getEmail()));
         Users user = userService.getUserByEmail(loginRequest.getEmail());
-        logger.info("UserController: authenticateUser user found {} ", Mapper.mapToJsonString(user.getEmail()));
+//        logger.info("UserController: authenticateUser user found {} ", Mapper.mapToJsonString(user.getEmail()));
 //        if (!Objects.equals(user.getStatus(), statusActif)) {
 //            return new ResponseEntity<>(new ResponseMessage("chao", "Compte bloqué!", null), HttpStatus.OK);
 //        }
@@ -117,7 +117,7 @@ public class UserController {
 
     @GetMapping("/curr-user-details")
     public ResponseEntity<?> currentUserDetails() {
-        logger.info("UserController: currentUserDetails debut d'execution...");
+//        logger.info("UserController: currentUserDetails debut d'execution...");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.isAuthenticated())
@@ -126,8 +126,8 @@ public class UserController {
         if (userDetails==null)
             throw new ApiRequestException("Aucun user trouvé");
         Users users = userService.getUserByUsername(userDetails.getUsername());
-        logger.info("UserController: currentUserDetails  response {} ", Mapper.mapToJsonString(users.getEmail()));
-        logger.info("UserController: currentUserDetails  end");
+//        logger.info("UserController: currentUserDetails  response {} ", Mapper.mapToJsonString(users.getEmail()));
+//        logger.info("UserController: currentUserDetails  end");
         return new ResponseEntity<>(new ResponseMessage("ok", "Les informations de l'utilisateur connecté ", users),
                 HttpStatus.OK);
     }
@@ -167,8 +167,8 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
 //        if (userService.getUserByUsername(userDTO.getUsername()) != null)
 //            return new ResponseEntity<>(new ResponseMessage("exists", "This login already exists !", userDTO.getUsername()), HttpStatus.OK);
-//        if (userService.getUserByEmail(userDTO.getEmail()) != null)
-//            return new ResponseEntity<>(new ResponseMessage("exists", "This email already exists !", userDTO), HttpStatus.OK);
+        if (userService.getUserByEmail(userDTO.getEmail()) != null)
+            return new ResponseEntity<>(new ResponseMessage("exists", "This email already exists !", userDTO), HttpStatus.OK);
 //        if (userService.getUserByTelephone(userDTO.getNumero_telephone()) != null)
 //            return new ResponseEntity<>(new ResponseMessage("exists", "Ce numéro exist déja!", userDTO.getNumero_telephone()), HttpStatus.OK);
         //set user chat_status to Online
