@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContenusRepository extends JpaRepository<Contenus,Long> {
 
+
     @Query("select contenus from Contenus contenus where contenus.id = :id")
     Contenus findByIdContenus(@Param("id") Long id);
 }
