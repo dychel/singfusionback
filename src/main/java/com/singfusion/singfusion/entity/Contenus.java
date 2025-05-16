@@ -17,25 +17,29 @@ public class Contenus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String intutile;
-    private TypeContenu typeContenu;
+    private String typeContenu;
     private Date dateAjout;
     private String etapes;
     private Long numeroEtape;
+    private String lien;
 
-    public Contenus(Long id, String intutile, TypeContenu typeContenu, Date dateAjout, String etapes, Long numeroEtape) {
+    public Contenus(Long id, String intutile, String typeContenu, Date dateAjout, String etapes, Long numeroEtape, String lien) {
         this.id = id;
         this.intutile = intutile;
         this.typeContenu = typeContenu;
         this.dateAjout = dateAjout;
         this.etapes = etapes;
         this.numeroEtape = numeroEtape;
+        this.lien = lien;
     }
 
-    public Contenus(String intutile, TypeContenu typeContenu, Date dateAjout, String etapes, Long numeroEtape) {
+    public Contenus(String intutile, String typeContenu, Date dateAjout, String etapes, Long numeroEtape, String lien) {
         this.intutile = intutile;
         this.typeContenu = typeContenu;
         this.dateAjout = dateAjout;
         this.etapes = etapes;
         this.numeroEtape = numeroEtape;
+        this.lien = lien;
     }
+
 }

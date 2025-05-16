@@ -83,6 +83,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/formalites/add").permitAll()
                 .requestMatchers("/api/singfusion/formalites/all").permitAll()
                 .requestMatchers("/api/singfusion/formalites/update/{id}").permitAll()
+                .requestMatchers("/api/singfusion/formalites/delete/{id}").permitAll()
                 .requestMatchers("/api/singfusion/formalites/findbyuser/{id}").permitAll()
 
                 //reponses

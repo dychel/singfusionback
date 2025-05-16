@@ -16,10 +16,9 @@ public class DocumentDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String intutile;
-    private TypeContenu typeContenu;
+    private String typeContenu;
     private Date dateAjout;
-    private Etapes etapes;
-    private File file;
+    private String etapes;
     private Long numeroEtape;
     private Long usersId;
 }

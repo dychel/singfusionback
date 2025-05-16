@@ -40,11 +40,11 @@ public class FormalitesServiceImpl implements FormalitesService{
     public Formalites saveFormalites(FormalitesDTO formalitesDTO) {
         Formalites formalites = modelMapper.map(formalitesDTO, Formalites.class);
 
-        if (formalitesDTO.getPostetravailId()!=null)
-                formalites.setAsPoste(true);
+        if (formalitesDTO.getPostetravailId()!=null){
+            formalites.setAsPoste(true);
+        }
         // acces
         List<Long> list_dto= formalitesDTO.getAccesId();
-        //
         if (!list_dto.isEmpty()){
             List<Acces> List_acces = accesRepository.findAllById(list_dto);
             formalites.setAcces(List_acces);
@@ -62,7 +62,7 @@ public class FormalitesServiceImpl implements FormalitesService{
         if (!list_dto2.isEmpty()){
             List<OutilsInformatique> List_outils = outilsInformatiqueReposittory.findAllById(list_dto3);
             formalites.setOutilsInformatique(List_outils);
-            formalites.setAsKit(true);
+            formalites.setAsOutilsInfo(true);
         }
         return formalitesRepository.save(formalites);
     }

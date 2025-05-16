@@ -12,6 +12,7 @@ public class ContenusDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String intutile;
-    private TypeContenu typeContenu;
+    private String typeContenu;
+    private String etapes;
     private Date dateAjout;
 }
