@@ -98,7 +98,6 @@ public class FormalitesServiceImpl implements FormalitesService{
     @Override
     public Formalites updateFormalites(Long id, FormalitesDTO formalitesDTO) {
         Formalites formalitesToUpdate = formalitesRepository.findByIdFormalites(id);
-
         if (formalitesToUpdate == null)
             throw new ApiRequestException("Formalites ID non trouvé");
         currentdate = new Date(currentTimeInMillis);

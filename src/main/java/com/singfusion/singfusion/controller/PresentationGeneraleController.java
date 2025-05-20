@@ -27,8 +27,12 @@ public class PresentationGeneraleController {
 
     @PostMapping("/add")
     public ResponseEntity<?> createPresentationGenerale(@RequestBody PresentationGeneraleDTO presentationGeneraleDTO) {
+        PresentationGenerale presentationGeneraleExists = presentationGeneraleService.findPresentationGeneraleById(presentationGeneraleDTO.getUserId());
+        if (presentationGeneraleExists!=null)
+            throw new ApiRequestException("Deja effectue cette etape");
         presentationGeneraleService.savePresentationGenerale(presentationGeneraleDTO);
-        return new ResponseEntity<>(new ResponseMessage("ok", "Presentation Generale "+ presentationGeneraleDTO.getTitre()+ " Créé avec succès", presentationGeneraleDTO),
+        PresentationGenerale presentationGenerale = presentationGeneraleService.findPresentationGeneraleByIdUsers(presentationGeneraleDTO.getUserId());
+        return new ResponseEntity<>(new ResponseMessage("ok", "Presentation Generale "+ presentationGeneraleDTO.getTitre()+ " Créé avec succès", presentationGenerale),
                 HttpStatus.OK);
     }
 
@@ -52,7 +56,7 @@ public class PresentationGeneraleController {
         Users users =userService.getUserById(id);
         if (users==null)
             throw new ApiRequestException("Ce utilisateur n'existe pas");
-        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des presentations ", presentationGeneraleService.findPresentationGeneraleById(id)),
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des presentations ", presentationGeneraleService.findPresentationGeneraleByIdUsers(id)),
                 HttpStatus.OK);
     }
 

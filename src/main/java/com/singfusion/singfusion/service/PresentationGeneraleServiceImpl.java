@@ -33,6 +33,12 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
     @Override
     public PresentationGenerale savePresentationGenerale(PresentationGeneraleDTO presentationGeneraleDTO) {
         PresentationGenerale presentationGenerale = modelMapper.map(presentationGeneraleDTO, PresentationGenerale.class);
+        if (presentationGeneraleDTO.getUserId() != null){
+            presentationGenerale.setUsers(userService.getUserById(presentationGeneraleDTO.getUserId()));
+        }
+        currentdate = new Date(currentTimeInMillis);
+        presentationGenerale.setDateAjout(currentdate);
+        presentationGenerale.setTitre("Etapes Presentation Generale utilisateur"+ presentationGeneraleDTO.getUserId());
         return presentationGeneraleRepository.save(presentationGenerale);
     }
 
@@ -44,7 +50,21 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
             throw new ApiRequestException("PresentationGenerale ID non trouvé");
         PresentationGenerale presentationGenerale = modelMapper.map(presentationGeneraleDTO, PresentationGenerale.class);
         presentationGenerale.setId(presentationGeneraleToUpdate.getId());
-        presentationGenerale.setDateAjout(currentdate);
+        presentationGenerale.setQuiz((presentationGeneraleToUpdate.getQuiz()));
+        presentationGenerale.setTitre((presentationGeneraleToUpdate.getTitre()));
+        //
+        presentationGenerale.setIsPowerPointRead(presentationGenerale.getIsPowerPointRead());
+        presentationGenerale.setIsPowerPointRead2(presentationGenerale.getIsPowerPointRead2());
+        presentationGenerale.setIsPowerPointRead3(presentationGenerale.getIsPowerPointRead3());
+        presentationGenerale.setIsPowerPointRead4(presentationGenerale.getIsPowerPointRead4());
+
+        presentationGenerale.setIsVideoWatched(presentationGenerale.getIsVideoWatched());
+        presentationGenerale.setIsVideoWatched2(presentationGenerale.getIsVideoWatched2());
+        presentationGenerale.setIsVideoWatched3(presentationGenerale.getIsVideoWatched3());
+        presentationGenerale.setIsVideoWatched4(presentationGenerale.getIsVideoWatched4());
+        //
+        presentationGenerale.setDateAjout(presentationGeneraleToUpdate.getDateAjout());
+        presentationGenerale.setDateMaj(currentdate);
         // MAJ id users
         if (presentationGenerale.getIsPowerPointRead() && presentationGenerale.getIsVideoWatched()){
             presentationGenerale.setIsFinished(true);
