@@ -98,6 +98,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/presentationgenerale/add").permitAll()
                 .requestMatchers("/api/singfusion/presentationgenerale/all").permitAll()
                 .requestMatchers("/api/singfusion/presentationgenerale/findbyuser/{id}").permitAll()
+                .requestMatchers("/api/singfusion/presentationgenerale/update/{id}").permitAll()
                 //presentation generale  contenus
                 .requestMatchers("/api/singfusion/document/add").permitAll()
                 .requestMatchers("/api/singfusion/document/all").permitAll()

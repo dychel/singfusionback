@@ -68,6 +68,12 @@ public class PresentationGeneraleController {
         return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Presentation Generale trouvée", presentationGenerale), HttpStatus.OK);
     }
 
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<?> updatePresentation(@PathVariable(value = "id" ) Long id, @RequestBody PresentationGeneraleDTO presentationGeneraleDTO){
+        presentationGeneraleService.updatePresentationGenerale(id, presentationGeneraleDTO);
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Presentation Updated!", presentationGeneraleService.updatePresentationGenerale(id, presentationGeneraleDTO)), HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deletePresentationGenerale(@PathVariable(value = "id") Long id) {
         presentationGeneraleService.deletePresentationGeneraleById(id);
