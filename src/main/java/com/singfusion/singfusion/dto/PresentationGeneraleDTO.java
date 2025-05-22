@@ -1,5 +1,4 @@
 package com.singfusion.singfusion.dto;
-import com.singfusion.singfusion.entity.Users;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
