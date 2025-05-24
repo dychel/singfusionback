@@ -165,8 +165,8 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
-//        if (userService.getUserByUsername(userDTO.getUsername()) != null)
-//            return new ResponseEntity<>(new ResponseMessage("exists", "This login already exists !", userDTO.getUsername()), HttpStatus.OK);
+        if (userService.getUserByUsername(userDTO.getUsername()) != null)
+            return new ResponseEntity<>(new ResponseMessage("exists", "This login already exists !", userDTO.getUsername()), HttpStatus.OK);
         if (userService.getUserByEmail(userDTO.getEmail()) != null)
             return new ResponseEntity<>(new ResponseMessage("exists", "This email already exists !", userDTO), HttpStatus.OK);
 //        if (userService.getUserByTelephone(userDTO.getNumero_telephone()) != null)

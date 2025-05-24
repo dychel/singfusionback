@@ -129,6 +129,11 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/integrationmetier/add").permitAll()
                 .requestMatchers("/api/singfusion/integrationmetier/findbyuser/{id}").permitAll()
                 .requestMatchers("/api/singfusion/integrationmetier/update/{id}").permitAll()
+                //integrationmetier
+                .requestMatchers("/api/singfusion/quizresult/findbyid/{id}").permitAll()
+                .requestMatchers("/api/singfusion/quizresult/add").permitAll()
+                .requestMatchers("/api/singfusion/quizresult/findbyuser/{id}").permitAll()
+                .requestMatchers("/api/singfusion/quizresult/update/{id}").permitAll()
 //                .requestMatchers("/images/**").permitAll()  getprojetouvert  /update/{id}
 //                .anyRequest().authenticated()
                 .and()

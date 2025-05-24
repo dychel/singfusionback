@@ -27,6 +27,8 @@ public class QuizResultServiceImpl implements QuizResultService{
     @Override
     public QuizResult saveQuizResult(QuizResultDTO quizResultDTO) {
         QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
+        if (quizResultDTO.getUserId() != null)
+            quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
         return quizResultRepository.save(quizResult);
     }
 

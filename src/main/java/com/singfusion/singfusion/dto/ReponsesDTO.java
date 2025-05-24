@@ -12,4 +12,5 @@ public class ReponsesDTO {
     private String description;
     private Date date_ajout;
     private Long questionId;
+    public Boolean isCorrect;
 }
