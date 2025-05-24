@@ -29,12 +29,12 @@ public class IntegrationMetier {
     @JoinColumn(name = "document_id", referencedColumnName = "id")
     private Document document;
     //objet document a prevoir, en phase de reflexion
-    private Date dateajout;
+    private Date dateAjout;
     private Boolean isVideoWatched=false;
     private Boolean isPowerPointRead=false;
     private Boolean IsFinished=false;
 
-    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Quiz quiz, Users users, Contenus contenus, Document document, Date dateajout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
+    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Quiz quiz, Users users, Contenus contenus, Document document, Date dateAjout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -43,13 +43,13 @@ public class IntegrationMetier {
         this.users = users;
         this.contenus = contenus;
         this.document = document;
-        this.dateajout = dateajout;
+        this.dateAjout = dateAjout;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
         IsFinished = isFinished;
     }
 
-    public IntegrationMetier(String titre, String description, Etapes etapes, Quiz quiz, Users users, Contenus contenus, Document document, Date dateajout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
+    public IntegrationMetier(String titre, String description, Etapes etapes, Quiz quiz, Users users, Contenus contenus, Document document, Date dateAjout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
         this.titre = titre;
         this.description = description;
         this.etapes = etapes;
@@ -57,13 +57,13 @@ public class IntegrationMetier {
         this.users = users;
         this.contenus = contenus;
         this.document = document;
-        this.dateajout = dateajout;
+        this.dateAjout = dateAjout;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
         IsFinished = isFinished;
     }
 
-    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Users users, Contenus contenus, Document document, Date dateajout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
+    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Users users, Contenus contenus, Document document, Date dateAjout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -71,13 +71,13 @@ public class IntegrationMetier {
         this.users = users;
         this.contenus = contenus;
         this.document = document;
-        this.dateajout = dateajout;
+        this.dateAjout = dateAjout;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
         IsFinished = isFinished;
     }
 
-    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Quiz quiz, Users users, Document document, Date dateajout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
+    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Quiz quiz, Users users, Document document, Date dateAjout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -85,13 +85,13 @@ public class IntegrationMetier {
         this.quiz = quiz;
         this.users = users;
         this.document = document;
-        this.dateajout = dateajout;
+        this.dateAjout = dateAjout;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
         IsFinished = isFinished;
     }
 
-    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Quiz quiz, Users users, Contenus contenus, Date dateajout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
+    public IntegrationMetier(Long id, String titre, String description, Etapes etapes, Quiz quiz, Users users, Contenus contenus, Date dateAjout, Boolean isVideoWatched, Boolean isPowerPointRead, Boolean isFinished) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -99,7 +99,7 @@ public class IntegrationMetier {
         this.quiz = quiz;
         this.users = users;
         this.contenus = contenus;
-        this.dateajout = dateajout;
+        this.dateAjout = dateAjout;
         this.isVideoWatched = isVideoWatched;
         this.isPowerPointRead = isPowerPointRead;
         IsFinished = isFinished;

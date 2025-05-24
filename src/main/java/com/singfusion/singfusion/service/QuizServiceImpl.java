@@ -1,20 +1,15 @@
 package com.singfusion.singfusion.service;
-import com.singfusion.singfusion.config.Etapes;
 import com.singfusion.singfusion.dto.QuizDTO;
 import com.singfusion.singfusion.entity.Questions;
 import com.singfusion.singfusion.entity.Quiz;
-import com.singfusion.singfusion.entity.Reponses;
 import com.singfusion.singfusion.entity.Users;
 import com.singfusion.singfusion.repository.QuestionsRepository;
 import com.singfusion.singfusion.repository.QuizRepository;
-import com.singfusion.singfusion.repository.ReponsesRepository;
 import com.singfusion.singfusion.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuizServiceImpl implements QuizService {

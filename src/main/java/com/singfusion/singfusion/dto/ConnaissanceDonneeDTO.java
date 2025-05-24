@@ -21,4 +21,5 @@ public class ConnaissanceDonneeDTO {
     private String conseil;
     private Long quizId;
     private Date dateAjout;
+    private Boolean IsFinished=false;
 }

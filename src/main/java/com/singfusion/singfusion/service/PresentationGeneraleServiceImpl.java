@@ -42,7 +42,6 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
         presentationGenerale.setTitre("Etapes Presentation Generale utilisateur"+ presentationGeneraleDTO.getUserId());
         return presentationGeneraleRepository.save(presentationGenerale);
     }
-
     @Override
     public PresentationGenerale updatePresentationGenerale(Long id, PresentationGeneraleDTO presentationGeneraleDTO) {
         PresentationGenerale presentationGeneraleToUpdate = presentationGeneraleRepository.findByIdPresentationGenerale(id);

@@ -15,4 +15,5 @@ public class RapportEtonnementDTO {
     private Long documentId;
     private Long quizId;
     private Date DateAjout;
+    private Boolean isFinished=false;
 }

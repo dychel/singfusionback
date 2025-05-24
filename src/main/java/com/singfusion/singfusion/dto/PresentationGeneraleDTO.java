@@ -28,4 +28,5 @@ public class PresentationGeneraleDTO {
     private Boolean isPowerPointRead2=false;
     private Boolean isPowerPointRead3=false;
     private Boolean isPowerPointRead4=false;
+    private Boolean isFinished=false;
 }

@@ -25,5 +25,5 @@ public class FormalitesDTO {
     private Boolean AsOutilsInfo=false;
     private Boolean AsPoste=false;
     private Boolean AsVisited=false;
-    private Boolean IsFinished=false;
+    private Boolean isFinished=false;
 }

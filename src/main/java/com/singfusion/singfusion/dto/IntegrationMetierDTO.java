@@ -22,4 +22,5 @@ public class IntegrationMetierDTO {
     private Date dateajout;
     private Boolean isVideoWatched=false;
     private Boolean isPowerPointRead=false;
+    private Boolean isFinished=false;
 }

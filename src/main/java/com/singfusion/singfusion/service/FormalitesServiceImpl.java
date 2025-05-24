@@ -46,7 +46,7 @@ public class FormalitesServiceImpl implements FormalitesService{
         }
 
         currentdate = new Date(currentTimeInMillis);
-        formalites.setDate_ajout(currentdate);
+        formalites.setDateAjout(currentdate);
 //        formalites.setDate_ajout(currentdate);
 //
 //        if (formalitesDTO.getQuizId()!=null){
@@ -105,7 +105,7 @@ public class FormalitesServiceImpl implements FormalitesService{
         // on recupere le user
         formalites.setId(formalitesToUpdate.getId());
         formalites.setUsers(formalitesToUpdate.getUsers());
-        formalites.setDate_ajout(currentdate);
+        formalites.setDateAjout(currentdate);
         formalites.setTitre(formalitesToUpdate.getTitre());
         formalites.setDescritpion(formalitesToUpdate.getDescritpion());
         formalites.setAsVisited(formalitesToUpdate.getAsVisited());

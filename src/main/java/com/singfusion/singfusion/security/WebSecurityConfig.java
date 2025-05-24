@@ -107,13 +107,28 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/contenus/add").permitAll()
                 .requestMatchers("/api/singfusion/contenus/all").permitAll()
                 .requestMatchers("/api/singfusion/contenus/findbyc/{id}").permitAll()
-
+                //
                 .requestMatchers("/api/singfusion/faq/add").permitAll()
                 .requestMatchers("/api/singfusion/faq/all").permitAll()
                 .requestMatchers("/api/singfusion/faq/findbycategorie/{categorie}").permitAll()
-
+                //
                 .requestMatchers("/api/singfusion/verificationidentity/findbyid/{id}").permitAll()
                 .requestMatchers("/api/singfusion/verificationidentity/findbyuser/{id}").permitAll()
+                //connaissance donnee
+                .requestMatchers("/api/singfusion/connaissancedonnee/findbyid/{id}").permitAll()
+                .requestMatchers("/api/singfusion/connaissancedonnee/add").permitAll()
+                .requestMatchers("/api/singfusion/connaissancedonnee/findbyuser/{id}").permitAll()
+                .requestMatchers("/api/singfusion/connaissancedonnee/update/{id}").permitAll()
+                //rapport etonnement
+                .requestMatchers("/api/singfusion/rapportetonnement/findbyid/{id}").permitAll()
+                .requestMatchers("/api/singfusion/rapportetonnement/add").permitAll()
+                .requestMatchers("/api/singfusion/rapportetonnement/findbyuser/{id}").permitAll()
+                .requestMatchers("/api/singfusion/rapportetonnement/update/{id}").permitAll()
+                //integrationmetier
+                .requestMatchers("/api/singfusion/integrationmetier/findbyid/{id}").permitAll()
+                .requestMatchers("/api/singfusion/integrationmetier/add").permitAll()
+                .requestMatchers("/api/singfusion/integrationmetier/findbyuser/{id}").permitAll()
+                .requestMatchers("/api/singfusion/integrationmetier/update/{id}").permitAll()
 //                .requestMatchers("/images/**").permitAll()  getprojetouvert  /update/{id}
 //                .anyRequest().authenticated()
                 .and()

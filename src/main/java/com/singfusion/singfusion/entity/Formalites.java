@@ -58,7 +58,7 @@ public class Formalites {
     private List<Kit> kit;
     private String titre;
     private String descritpion;
-    private Date date_ajout;
+    private Date dateAjout;
     @ManyToOne
     @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;

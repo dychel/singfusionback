@@ -23,6 +23,7 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
     UserRepository userRepository;
     @Autowired
     QuizService quizService;
+    @Autowired
     IntegrationMetierRepository integrationMetierRepository;
     Date currentdate;
     Long currentTimeInMillis = System.currentTimeMillis();
@@ -40,7 +41,7 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
             throw new ApiRequestException("Integration Metier ID non trouvé");
         IntegrationMetier integrationMetier = modelMapper.map(integrationMetierDTO, IntegrationMetier.class);
         integrationMetier.setId(integrationMetierToUpdate.getId());
-        integrationMetier.setDateajout(currentdate);
+        integrationMetier.setDateAjout(currentdate);
         // MAJ id users
         if (integrationMetier.getIsVideoWatched() && integrationMetier.getIsPowerPointRead()){
             integrationMetier.setIsFinished(true);
