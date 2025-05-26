@@ -20,7 +20,17 @@ public class IntegrationMetierDTO {
     private Long contenuId;
     //objet document a prevoir, en phase de reflexion
     private Date dateajout;
-    private Boolean isVideoWatched=false;
-    private Boolean isPowerPointRead=false;
-    private Boolean isFinished=false;
+    private Boolean isVideoWatched;
+    private Boolean isVideoWatched2;
+    private Boolean isVideoWatched3;
+    private Boolean isVideoWatched4;
+
+    private Boolean isPowerPointRead;
+    private Boolean isPowerPointRead2;
+    private Boolean isPowerPointRead3;
+    private Boolean isPowerPointRead4;
+    private Boolean isPowerPointRead5;
+    private Boolean isPowerPointRead6;
+    private Boolean isPowerPointRead7;
+    private Boolean IsFinished;
 }

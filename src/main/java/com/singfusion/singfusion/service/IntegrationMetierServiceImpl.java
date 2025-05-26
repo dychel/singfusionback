@@ -30,6 +30,12 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
     @Override
     public IntegrationMetier saveIntegrationMetier(IntegrationMetierDTO integrationMetierDTO) {
         IntegrationMetier integrationMetier = modelMapper.map(integrationMetierDTO, IntegrationMetier.class);
+        if (integrationMetierDTO.getUserId() != null){
+            integrationMetier.setUsers(userService.getUserById(integrationMetierDTO.getUserId()));
+        }
+        currentdate = new Date(currentTimeInMillis);
+        integrationMetier.setDateAjout(currentdate);
+        integrationMetier.setTitre("Etapes Integration Metier, utilisateur"+ integrationMetierDTO.getUserId());
         return integrationMetierRepository.save(integrationMetier);
     }
 
@@ -43,7 +49,58 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
         integrationMetier.setId(integrationMetierToUpdate.getId());
         integrationMetier.setDateAjout(currentdate);
         // MAJ id users
-        if (integrationMetier.getIsVideoWatched() && integrationMetier.getIsPowerPointRead()){
+        //
+        integrationMetier.setIsPowerPointRead(integrationMetierToUpdate.getIsPowerPointRead());
+        integrationMetier.setIsPowerPointRead2(integrationMetierToUpdate.getIsPowerPointRead2());
+        integrationMetier.setIsPowerPointRead3(integrationMetierToUpdate.getIsPowerPointRead3());
+        integrationMetier.setIsPowerPointRead4(integrationMetierToUpdate.getIsPowerPointRead4());
+        integrationMetier.setIsPowerPointRead5(integrationMetierToUpdate.getIsPowerPointRead5());
+        integrationMetier.setIsPowerPointRead6(integrationMetierToUpdate.getIsPowerPointRead6());
+        integrationMetier.setIsPowerPointRead7(integrationMetierToUpdate.getIsPowerPointRead7());
+
+        integrationMetier.setIsVideoWatched(integrationMetierToUpdate.getIsVideoWatched());
+        integrationMetier.setIsVideoWatched2(integrationMetierToUpdate.getIsVideoWatched2());
+        integrationMetier.setIsVideoWatched3(integrationMetierToUpdate.getIsVideoWatched3());
+        integrationMetier.setIsVideoWatched4(integrationMetierToUpdate.getIsVideoWatched4());
+
+        //check powerpoint
+        if (integrationMetierDTO.getIsPowerPointRead()!=null){
+            integrationMetier.setIsPowerPointRead(integrationMetierDTO.getIsPowerPointRead());
+        }
+        if (integrationMetierDTO.getIsPowerPointRead2()!=null){
+            integrationMetier.setIsPowerPointRead2(integrationMetierDTO.getIsPowerPointRead2());
+        }
+        if (integrationMetierDTO.getIsPowerPointRead3()!=null){
+            integrationMetier.setIsPowerPointRead3(integrationMetierDTO.getIsPowerPointRead3());
+        }
+        if (integrationMetierDTO.getIsPowerPointRead4()!=null){
+            integrationMetier.setIsPowerPointRead4(integrationMetierDTO.getIsPowerPointRead4());
+        }
+        if (integrationMetierDTO.getIsPowerPointRead5()!=null){
+            integrationMetier.setIsPowerPointRead5(integrationMetierDTO.getIsPowerPointRead5());
+        }
+        if (integrationMetierDTO.getIsPowerPointRead4()!=null){
+            integrationMetier.setIsPowerPointRead6(integrationMetierDTO.getIsPowerPointRead6());
+        }
+        if (integrationMetierDTO.getIsPowerPointRead7()!=null){
+            integrationMetier.setIsPowerPointRead7(integrationMetierDTO.getIsPowerPointRead7());
+        }
+        //check videos
+        if (integrationMetierDTO.getIsVideoWatched()!=null){
+            integrationMetier.setIsVideoWatched(integrationMetierDTO.getIsVideoWatched());
+        }
+        if (integrationMetierDTO.getIsVideoWatched2()!=null){
+            integrationMetier.setIsVideoWatched2(integrationMetierDTO.getIsVideoWatched2());
+        }
+        if (integrationMetierDTO.getIsVideoWatched3()!=null){
+            integrationMetier.setIsVideoWatched3(integrationMetierDTO.getIsVideoWatched3());
+        }
+        if (integrationMetierDTO.getIsVideoWatched4()!=null){
+            integrationMetier.setIsVideoWatched4(integrationMetierDTO.getIsVideoWatched4());
+        }
+
+        // on fait pareil pour
+        if (integrationMetier.getIsVideoWatched() && integrationMetier.getIsVideoWatched2() && integrationMetier.getIsVideoWatched3() && integrationMetier.getIsVideoWatched4() && integrationMetier.getIsPowerPointRead() && integrationMetier.getIsPowerPointRead2() && integrationMetier.getIsPowerPointRead3() && integrationMetier.getIsPowerPointRead4()&& integrationMetier.getIsPowerPointRead5() && integrationMetier.getIsPowerPointRead6()&& integrationMetier.getIsPowerPointRead7()){
             integrationMetier.setIsFinished(true);
             // si tout est okay on met a jour l'etat
             Users users = userRepository.findByIdUser(integrationMetierDTO.getUserId());
@@ -65,6 +122,7 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
         if (integrationMetierDTO.getQuizId() != null)
             integrationMetier.setQuiz(quizService.findQuizById(integrationMetierDTO.getQuizId()));
     }
+
     @Override
     public IntegrationMetier findIntegrationMetierById(Long id) {
         return integrationMetierRepository.findByIdIntegrationMetier(id);

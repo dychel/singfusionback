@@ -53,10 +53,10 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
         presentationGenerale.setQuiz((presentationGeneraleToUpdate.getQuiz()));
         presentationGenerale.setTitre((presentationGeneraleToUpdate.getTitre()));
         //
-//        presentationGenerale.setIsPowerPointRead(presentationGeneraleToUpdate.getIsPowerPointRead());
-//        presentationGenerale.setIsPowerPointRead2(presentationGeneraleToUpdate.getIsPowerPointRead2());
-//        presentationGenerale.setIsPowerPointRead3(presentationGeneraleToUpdate.getIsPowerPointRead3());
-//        presentationGenerale.setIsPowerPointRead4(presentationGeneraleToUpdate.getIsPowerPointRead4());
+        presentationGenerale.setIsPowerPointRead(presentationGeneraleToUpdate.getIsPowerPointRead());
+        presentationGenerale.setIsPowerPointRead2(presentationGeneraleToUpdate.getIsPowerPointRead2());
+        presentationGenerale.setIsPowerPointRead3(presentationGeneraleToUpdate.getIsPowerPointRead3());
+        presentationGenerale.setIsPowerPointRead4(presentationGeneraleToUpdate.getIsPowerPointRead4());
 
         presentationGenerale.setIsVideoWatched(presentationGeneraleToUpdate.getIsVideoWatched());
         presentationGenerale.setIsVideoWatched2(presentationGeneraleToUpdate.getIsVideoWatched2());
@@ -68,41 +68,34 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
             presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsPowerPointRead());
         }
         if (presentationGeneraleDTO.getIsPowerPointRead2()!=null){
-            presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsPowerPointRead2());
+            presentationGenerale.setIsPowerPointRead2(presentationGeneraleDTO.getIsPowerPointRead2());
         }
         if (presentationGeneraleDTO.getIsPowerPointRead3()!=null){
-            presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsPowerPointRead3());
+            presentationGenerale.setIsPowerPointRead3(presentationGeneraleDTO.getIsPowerPointRead3());
         }
         if (presentationGeneraleDTO.getIsPowerPointRead4()!=null){
-            presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsPowerPointRead4());
+            presentationGenerale.setIsPowerPointRead4(presentationGeneraleDTO.getIsPowerPointRead4());
         }
         //check videos
         if (presentationGeneraleDTO.getIsVideoWatched()!=null){
-            presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsVideoWatched());
+            presentationGenerale.setIsVideoWatched(presentationGeneraleDTO.getIsVideoWatched());
         }
         if (presentationGeneraleDTO.getIsVideoWatched2()!=null){
-            presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsVideoWatched2());
+            presentationGenerale.setIsVideoWatched2(presentationGeneraleDTO.getIsVideoWatched2());
         }
         if (presentationGeneraleDTO.getIsVideoWatched3()!=null){
-            presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsVideoWatched3());
+            presentationGenerale.setIsVideoWatched3(presentationGeneraleDTO.getIsVideoWatched3());
         }
         if (presentationGeneraleDTO.getIsVideoWatched4()!=null){
-            presentationGenerale.setIsPowerPointRead(presentationGeneraleDTO.getIsVideoWatched4());
+            presentationGenerale.setIsVideoWatched4(presentationGeneraleDTO.getIsVideoWatched4());
         }
         //
         presentationGenerale.setDateAjout(presentationGeneraleToUpdate.getDateAjout());
         presentationGenerale.setDateMaj(currentdate);
-        // MAJ id users
-        if (presentationGenerale.getIsPowerPointRead() && presentationGenerale.getIsVideoWatched()){
-            presentationGenerale.setIsFinished(true);
 
-            // si tout est okay on met a jour l'etat
-            Users users = userRepository.findByIdUser(presentationGeneraleDTO.getUserId());
-            users.setIsEtapes2Done(true);
-            userRepository.save(users);
-        }
         // on fait pareil pour
         if (presentationGenerale.getIsVideoWatched() && presentationGenerale.getIsVideoWatched2() && presentationGenerale.getIsVideoWatched3() && presentationGenerale.getIsVideoWatched4() && presentationGenerale.getIsPowerPointRead() && presentationGenerale.getIsPowerPointRead2() && presentationGenerale.getIsPowerPointRead3() && presentationGenerale.getIsPowerPointRead4()){
+            presentationGenerale.setIsFinished(true);
             // si tout est okay on met a jour l'etat
             Users users = userRepository.findByIdUser(presentationGeneraleDTO.getUserId());
             users.setIsEtapes3Done(true);
@@ -111,7 +104,6 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
         updateForeignKeyUsersContenus(presentationGeneraleDTO, presentationGenerale);
         return presentationGeneraleRepository.save(presentationGenerale);
     }
-
     private void updateForeignKeyUsersContenus(PresentationGeneraleDTO presentationGeneraleDTO, PresentationGenerale presentationGenerale) {
         // mettre a jour id contenus si pas null
         if (presentationGeneraleDTO.getContenusId() != null )

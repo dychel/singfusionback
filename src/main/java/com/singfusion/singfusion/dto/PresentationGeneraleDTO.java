@@ -19,14 +19,14 @@ public class PresentationGeneraleDTO {
     private Date dateAjout;
     private Date dateMaj;
     //
-    private Boolean isVideoWatched=false;
-    private Boolean isVideoWatched2=false;
-    private Boolean isVideoWatched3=false;
-    private Boolean isVideoWatched4=false;
+    private Boolean isVideoWatched;
+    private Boolean isVideoWatched2;
+    private Boolean isVideoWatched3;
+    private Boolean isVideoWatched4;
     //
-    private Boolean isPowerPointRead=false;
-    private Boolean isPowerPointRead2=false;
-    private Boolean isPowerPointRead3=false;
-    private Boolean isPowerPointRead4=false;
-    private Boolean isFinished=false;
+    private Boolean isPowerPointRead;
+    private Boolean isPowerPointRead2;
+    private Boolean isPowerPointRead3;
+    private Boolean isPowerPointRead4;
+    private Boolean isFinished;
 }

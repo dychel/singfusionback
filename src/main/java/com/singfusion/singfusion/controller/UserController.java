@@ -8,7 +8,6 @@ import com.singfusion.singfusion.security.jwt.JwtProvider;
 import com.singfusion.singfusion.service.OtpService;
 import com.singfusion.singfusion.service.RoleService;
 import com.singfusion.singfusion.service.UserService;
-import com.singfusion.singfusion.service.VerificationEmailService;
 import com.singfusion.singfusion.util.Mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +21,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
@@ -162,13 +160,11 @@ public class UserController {
 //        return new ResponseEntity<>(new ResponseMessage("ok", "Nombre d'utilisateurs connectés", userService.getCountConnectedUser()),
 //                HttpStatus.OK);
 //    }
-
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
-        if (userService.getUserByUsername(userDTO.getUsername()) != null)
-            return new ResponseEntity<>(new ResponseMessage("exists", "This login already exists !", userDTO.getUsername()), HttpStatus.OK);
-        if (userService.getUserByEmail(userDTO.getEmail()) != null)
+        if (userService.getUserByEmail(userDTO.getEmail()) != null){
             return new ResponseEntity<>(new ResponseMessage("exists", "This email already exists !", userDTO), HttpStatus.OK);
+        }
 //        if (userService.getUserByTelephone(userDTO.getNumero_telephone()) != null)
 //            return new ResponseEntity<>(new ResponseMessage("exists", "Ce numéro exist déja!", userDTO.getNumero_telephone()), HttpStatus.OK);
         //set user chat_status to Online

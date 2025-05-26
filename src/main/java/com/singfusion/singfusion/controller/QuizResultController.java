@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
 @RequestMapping("/api/singfusion/quizresult/*")
@@ -25,13 +28,19 @@ public class QuizResultController {
     @Autowired
     UserService userService;
     @Autowired
-    QuizService quizResult;
+    QuizService quizService;
 
     @PostMapping("/add")
     public ResponseEntity<?> createQuizResultController(@RequestBody QuizResultDTO quizResultDTO) {
         quizResultService.saveQuizResult(quizResultDTO);
         return new ResponseEntity<>(new ResponseMessage("ok", "Quiz result "+ quizResultDTO.getTitre()+ " Créé avec succès", quizResultDTO),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("findbytitre/{titre}/{id}")
+    public ResponseEntity<ResponseMessage> findByTitre(@PathVariable(value = "titre") String titre, @PathVariable(value = "id") Long id){
+        List<QuizResult> Result = Collections.singletonList(quizResultService.findQuizResultTitre(titre, id).getLast());
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Quiz trouvé", Result), HttpStatus.OK);
     }
 
     @GetMapping(value ="/all")
@@ -42,8 +51,8 @@ public class QuizResultController {
 
     @GetMapping(value ="/findbyquiz/{id}")
     public ResponseEntity<?> getQuizResultByQuiz(@PathVariable(value = "id") Long id) {
-        Quiz quiz=quizResult.findQuizById(id);
-        if (quizResult==null)
+        Quiz quiz=quizService.findQuizById(id);
+        if (quiz==null)
             throw new ApiRequestException("Ce quiz n'existe pas");
         return new ResponseEntity<>(new ResponseMessage("ok", "Liste des quiz result", quizResultService.findQuizResultById(id)),
                 HttpStatus.OK);

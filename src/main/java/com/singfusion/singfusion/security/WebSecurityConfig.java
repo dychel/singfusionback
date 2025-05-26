@@ -82,6 +82,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/quizresult/update/{id}").permitAll()
                 .requestMatchers("/api/singfusion/quizresult/all").permitAll()
                 .requestMatchers("/api/singfusion/quizresult/findbyuser/{id}").permitAll()
+                .requestMatchers("/api/singfusion/quizresult/findbytitre/{titre}/{id}").permitAll()
                 //formalites
                 .requestMatchers("/api/singfusion/formalites/add").permitAll()
                 .requestMatchers("/api/singfusion/formalites/all").permitAll()
@@ -126,6 +127,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/rapportetonnement/update/{id}").permitAll()
                 //integrationmetier
                 .requestMatchers("/api/singfusion/integrationmetier/findbyid/{id}").permitAll()
+                .requestMatchers("/api/singfusion/integrationmetier/all").permitAll()
                 .requestMatchers("/api/singfusion/integrationmetier/add").permitAll()
                 .requestMatchers("/api/singfusion/integrationmetier/findbyuser/{id}").permitAll()
                 .requestMatchers("/api/singfusion/integrationmetier/update/{id}").permitAll()

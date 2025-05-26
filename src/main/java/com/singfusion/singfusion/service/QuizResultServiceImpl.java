@@ -69,6 +69,11 @@ public class QuizResultServiceImpl implements QuizResultService{
     }
 
     @Override
+    public List<QuizResult> findQuizResultTitre(String titre, Long id) {
+        return quizResultRepository.findQuizResultByTitre(titre, id);
+    }
+
+    @Override
     public QuizResult findQuizResultByIdQuiz(Long id) {
         Quiz quiz = quizService.findQuizById(id);
         if (quiz == null)
