@@ -25,7 +25,6 @@ public class QuestionsController {
 
     @PostMapping("/add")
     public ResponseEntity<?> createQuestions(@RequestBody QuestionsDTO questionsDTO) {
-
         questionsService.saveQuestions(questionsDTO);
         return new ResponseEntity<>(new ResponseMessage("ok", "Question "+ questionsDTO.getContenu()+ " Créé avec succès", questionsDTO),
                 HttpStatus.OK);
