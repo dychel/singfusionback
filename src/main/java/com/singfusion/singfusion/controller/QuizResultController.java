@@ -1,5 +1,4 @@
 package com.singfusion.singfusion.controller;
-import com.singfusion.singfusion.dto.ProjetDTO;
 import com.singfusion.singfusion.dto.QuizResultDTO;
 import com.singfusion.singfusion.entity.*;
 import com.singfusion.singfusion.exception.ApiRequestException;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +43,7 @@ public class QuizResultController {
 
     @GetMapping(value ="/all")
     public ResponseEntity<?> getAllResult() {
-        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des Quiz Result", projetService.listProjet()),
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des Quiz Result", quizResultService.listQuizResult()),
                 HttpStatus.OK);
     }
 

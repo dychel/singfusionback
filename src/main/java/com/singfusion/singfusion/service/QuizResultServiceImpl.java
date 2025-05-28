@@ -1,5 +1,6 @@
 package com.singfusion.singfusion.service;
 import com.singfusion.singfusion.dto.QuizResultDTO;
+import com.singfusion.singfusion.entity.Questions;
 import com.singfusion.singfusion.entity.Quiz;
 import com.singfusion.singfusion.entity.QuizResult;
 import com.singfusion.singfusion.entity.Users;
@@ -20,6 +21,9 @@ public class QuizResultServiceImpl implements QuizResultService{
     UserService userService;
     @Autowired
     QuizService quizService;
+
+    @Autowired
+    QuestionsService questionsService;
     @Autowired
     QuizResultRepository quizResultRepository;
     Date currentdate;
@@ -27,6 +31,10 @@ public class QuizResultServiceImpl implements QuizResultService{
     @Override
     public QuizResult saveQuizResult(QuizResultDTO quizResultDTO) {
         QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
+        //recuperer le total question
+        //quiz
+        Quiz quiz = quizService.findQuizById(quizResultDTO.getQuizId());
+        quizResult.setTotalQuestion((long) quiz.getQuestions().size());
         if (quizResultDTO.getUserId() != null)
             quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
         return quizResultRepository.save(quizResult);
