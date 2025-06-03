@@ -6,9 +6,12 @@ import com.singfusion.singfusion.entity.QuizResult;
 import com.singfusion.singfusion.entity.Users;
 import com.singfusion.singfusion.exception.ApiRequestException;
 import com.singfusion.singfusion.repository.QuizResultRepository;
+import com.singfusion.singfusion.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -28,15 +31,68 @@ public class QuizResultServiceImpl implements QuizResultService{
     QuizResultRepository quizResultRepository;
     Date currentdate;
     Long currentTimeInMillis = System.currentTimeMillis();
+
+    @Autowired
+    UserRepository userRepository;
     @Override
     public QuizResult saveQuizResult(QuizResultDTO quizResultDTO) {
         QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
+
+        //on met a jour le user
         //recuperer le total question
-        //quiz
+
         Quiz quiz = quizService.findQuizById(quizResultDTO.getQuizId());
         quizResult.setTotalQuestion((long) quiz.getQuestions().size());
         if (quizResultDTO.getUserId() != null)
             quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
+        // si le quiz est reussi, on passe a l'etape suivante. Pour présentation
+        QuizResult quizResultTwo = quizResultRepository.findQuizResultByTitre("PRESENTATION", quizResultDTO.getUserId());
+        if(quizResultTwo!=null && quizResultTwo.getIsUserSucceed()){
+//          si tout est okay on met a jour l'etat
+            Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+            users.setIsEtapes2Done(true);
+            userRepository.save(users);
+        }
+
+        // si le quiz est reussi, on passe a l'etape suivante. Pour Integration
+        QuizResult quizResultIntegration = quizResultRepository.findQuizResultByTitre("INTEGRATIONMETIER", quizResultDTO.getUserId());
+        if(quizResultIntegration!=null && quizResultIntegration.getIsUserSucceed()){
+//          si tout est okay on met a jour l'etat
+            Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+            users.setIsEtapes3Done(true);
+            userRepository.save(users);
+        }
+
+        // si le quiz est reussi, on passe a l'etape suivante. Pour Connaissance
+        QuizResult quizResulTKce = quizResultRepository.findQuizResultByTitre("CONNAISSANCE", quizResultDTO.getUserId());
+        if(quizResulTKce!=null && quizResulTKce.getIsUserSucceed()){
+//          si tout est okay on met a jour l'etat
+            Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+            users.setIsEtapes3Done(true);
+            userRepository.save(users);
+        }
+
+        // si le quiz est reussi, on passe a l'etape suivante. Pour Rapport activités
+        QuizResult quizResultRapport = quizResultRepository.findQuizResultByTitre("RAPPORT", quizResultDTO.getUserId());
+        if(quizResultRapport!=null && quizResultRapport.getIsUserSucceed()){
+//          si tout est okay on met a jour l'etat
+            Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+            users.setIsEtapes3Done(true);
+            userRepository.save(users);
+        }
+
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResultTwo!=null)
+            quizResultRepository.delete(quizResultTwo);
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResultIntegration!=null)
+            quizResultRepository.delete(quizResultIntegration);
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResulTKce!=null)
+            quizResultRepository.delete(quizResulTKce);
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResultRapport!=null)
+            quizResultRepository.delete(quizResultRapport);
         return quizResultRepository.save(quizResult);
     }
 
@@ -48,6 +104,8 @@ public class QuizResultServiceImpl implements QuizResultService{
             throw new ApiRequestException("Quiz Result ID non trouvé");
         QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
         quizResult.setId(quizResultToUpdate.getId());
+        quizResult.setTitre(quizResultDTO.getTitre());
+        quizResult.setUsers(quizResultToUpdate.getUsers());
         //projet.setDatedebut(currentdate);
         // MAJ id users
         updateForeignKeyUsersQuiz(quizResultDTO, quizResult);
@@ -77,7 +135,7 @@ public class QuizResultServiceImpl implements QuizResultService{
     }
 
     @Override
-    public List<QuizResult> findQuizResultTitre(String titre, Long id) {
+    public QuizResult findQuizResultTitre(String titre, Long id) {
         return quizResultRepository.findQuizResultByTitre(titre, id);
     }
 

@@ -12,5 +12,5 @@ public interface QuizService {
     List<Quiz> listQuiz();
     void deleteQuizById(Long id);
 
-    List<Quiz> getByEtapes(String etape_integration);
+    Quiz getByEtapes(String etape_integration);
 }

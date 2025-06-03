@@ -1,9 +1,6 @@
 package com.singfusion.singfusion.service;
 import com.singfusion.singfusion.dto.PresentationGeneraleDTO;
-import com.singfusion.singfusion.entity.Contenus;
-import com.singfusion.singfusion.entity.PresentationGenerale;
-import com.singfusion.singfusion.entity.Quiz;
-import com.singfusion.singfusion.entity.Users;
+import com.singfusion.singfusion.entity.*;
 import com.singfusion.singfusion.exception.ApiRequestException;
 import com.singfusion.singfusion.repository.PresentationGeneraleRepository;
 import com.singfusion.singfusion.repository.UserRepository;
@@ -30,6 +27,8 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
     Long currentTimeInMillis = System.currentTimeMillis();
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    QuizResultService quizResultService;
 
     @Override
     public PresentationGenerale savePresentationGenerale(PresentationGeneraleDTO presentationGeneraleDTO) {
@@ -96,11 +95,12 @@ public class PresentationGeneraleServiceImpl implements PresentationGeneraleServ
         // on fait pareil pour
         if (presentationGenerale.getIsVideoWatched() && presentationGenerale.getIsVideoWatched2() && presentationGenerale.getIsVideoWatched3() && presentationGenerale.getIsVideoWatched4() && presentationGenerale.getIsPowerPointRead() && presentationGenerale.getIsPowerPointRead2() && presentationGenerale.getIsPowerPointRead3() && presentationGenerale.getIsPowerPointRead4()){
             presentationGenerale.setIsFinished(true);
-            // si tout est okay on met a jour l'etat
-            Users users = userRepository.findByIdUser(presentationGeneraleDTO.getUserId());
-            users.setIsEtapes3Done(true);
-            userRepository.save(users);
+            // si tout est okay on met a jour l'état
+//            Users users = userRepository.findByIdUser(presentationGeneraleDTO.getUserId());
+//            users.setIsEtapes3Done(true);
+//            userRepository.save(users);
         }
+
         updateForeignKeyUsersContenus(presentationGeneraleDTO, presentationGenerale);
         return presentationGeneraleRepository.save(presentationGenerale);
     }

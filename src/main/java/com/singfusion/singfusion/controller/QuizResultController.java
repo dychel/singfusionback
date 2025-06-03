@@ -37,8 +37,8 @@ public class QuizResultController {
 
     @GetMapping("findbytitre/{titre}/{id}")
     public ResponseEntity<ResponseMessage> findByTitre(@PathVariable(value = "titre") String titre, @PathVariable(value = "id") Long id){
-        List<QuizResult> Result = Collections.singletonList(quizResultService.findQuizResultTitre(titre, id).getLast());
-        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Quiz trouvé", Result), HttpStatus.OK);
+       QuizResult quizResult = quizResultService.findQuizResultTitre(titre, id);
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Quiz trouvé", quizResult), HttpStatus.OK);
     }
 
     @GetMapping(value ="/all")

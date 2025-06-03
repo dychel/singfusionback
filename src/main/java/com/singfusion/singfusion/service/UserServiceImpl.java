@@ -107,10 +107,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users getUserByUsername(String username) {
-        Users user =userRepository.findByUsername(username);
-        if (user==null)
-            throw new ApiRequestException("Cet nom n'est associée à aucun utilisateur");
-        return user;
+      //  Users user =
+//        if (user==null)
+//            throw new ApiRequestException("Cet nom n'est associée à aucun utilisateur");
+        return userRepository.findByUsername(username);
     }
 
     @Override

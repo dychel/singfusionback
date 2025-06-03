@@ -3,6 +3,7 @@ import com.singfusion.singfusion.dto.PosteTravailDTO;
 import com.singfusion.singfusion.dto.QuizDTO;
 import com.singfusion.singfusion.entity.Postetravail;
 import com.singfusion.singfusion.entity.Quiz;
+import com.singfusion.singfusion.exception.ApiExceptionHandler;
 import com.singfusion.singfusion.response.ResponseMessage;
 import com.singfusion.singfusion.service.PostetravailService;
 import com.singfusion.singfusion.service.QuizService;
@@ -42,7 +43,9 @@ public class QuizController {
 
     @GetMapping("findbyetapes/{etape_integration}")
     public ResponseEntity<ResponseMessage> findByEtapes(@PathVariable(value = "etape_integration") String etape_integration){
-        List<Quiz> quiz = quizService.getByEtapes(etape_integration);
+        Quiz quiz = quizService.getByEtapes(etape_integration);
+        if (quiz==null)
+            return null;
         return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Quiz trouvé", quiz), HttpStatus.OK);
     }
 

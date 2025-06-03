@@ -102,10 +102,10 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
         // on fait pareil pour
         if (integrationMetier.getIsVideoWatched() && integrationMetier.getIsVideoWatched2() && integrationMetier.getIsVideoWatched3() && integrationMetier.getIsVideoWatched4() && integrationMetier.getIsPowerPointRead() && integrationMetier.getIsPowerPointRead2() && integrationMetier.getIsPowerPointRead3() && integrationMetier.getIsPowerPointRead4()&& integrationMetier.getIsPowerPointRead5() && integrationMetier.getIsPowerPointRead6()&& integrationMetier.getIsPowerPointRead7()){
             integrationMetier.setIsFinished(true);
-            // si tout est okay on met a jour l'etat
-            Users users = userRepository.findByIdUser(integrationMetierDTO.getUserId());
-            users.setIsEtapes3Done(true);
-            userRepository.save(users);
+//            // si tout est okay on met a jour l'etat
+//            Users users = userRepository.findByIdUser(integrationMetierDTO.getUserId());
+//            users.setIsEtapes3Done(true);
+            //userRepository.save(users);
         }
         updateForeignKeyUsersContenusQuiz(integrationMetierDTO, integrationMetier);
         return integrationMetierRepository.save(integrationMetier);

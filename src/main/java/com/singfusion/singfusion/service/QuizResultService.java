@@ -9,7 +9,7 @@ public interface QuizResultService {
     QuizResult updateQuizResult(Long id, QuizResultDTO quizResultDTO);
     QuizResult findQuizResultById(Long id);
     QuizResult findQuizResultByIdUsers(Long id);
-    List<QuizResult> findQuizResultTitre(String titre, Long id);
+    QuizResult findQuizResultTitre(String titre, Long id);
     QuizResult findQuizResultByIdQuiz(Long id);
     List<QuizResult> listQuizResult();
     void deleteQuizResultById(Long id);

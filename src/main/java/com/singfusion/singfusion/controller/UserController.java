@@ -50,9 +50,6 @@ public class UserController {
     @Autowired
     OtpService otpService;
 
-//    @Autowired
-//    VerificationEmailService verificationEmailService;
-
     Logger logger = LogManager.getLogger(UserController.class);
 
     @PostMapping("/authenticate")
@@ -116,7 +113,6 @@ public class UserController {
     @GetMapping("/curr-user-details")
     public ResponseEntity<?> currentUserDetails() {
 //        logger.info("UserController: currentUserDetails debut d'execution...");
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.isAuthenticated())
             throw new ApiRequestException("Utilisateur non authentifier");

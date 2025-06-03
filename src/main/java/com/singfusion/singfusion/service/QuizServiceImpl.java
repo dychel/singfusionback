@@ -77,7 +77,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<Quiz> getByEtapes(String etape_integration) {
+    public Quiz getByEtapes(String etape_integration) {
         return quizRepository.findQuizByEtapes(etape_integration);
     }
 }

@@ -19,6 +19,6 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
     Quiz findByIdDifferentQuiz(@Param("id") Long id);
 
     @Query("select quiz from Quiz quiz where quiz.etape_integration = :etape_integration")
-    List<Quiz> findQuizByEtapes(@Param("etape_integration") String etape_integration);
+    Quiz findQuizByEtapes(@Param("etape_integration") String etape_integration);
 
 }
