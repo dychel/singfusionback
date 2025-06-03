@@ -30,6 +30,12 @@ public class ConnaissanceDonneeServiceImpl implements ConnaissanceDonneeService 
     @Override
     public ConnaissanceDonnee saveConnaissanceDonnee(ConnaissanceDonneeDTO connaissanceDonneeDTO) {
         ConnaissanceDonnee connaissanceDonnee = modelMapper.map(connaissanceDonneeDTO, ConnaissanceDonnee.class);
+        if (connaissanceDonneeDTO.getUserId() != null){
+            connaissanceDonnee.setUsers(userService.getUserById(connaissanceDonneeDTO.getUserId()));
+        }
+        currentdate = new Date(currentTimeInMillis);
+        connaissanceDonnee.setDateAjout(currentdate);
+        connaissanceDonnee.setTitre("Etapes Connaissance des donnéés, utilisateur "+ connaissanceDonneeDTO.getUserId());
         return connaissanceDonneeRepository.save(connaissanceDonnee);
     }
 

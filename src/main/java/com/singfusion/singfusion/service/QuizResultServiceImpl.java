@@ -1,11 +1,10 @@
 package com.singfusion.singfusion.service;
 import com.singfusion.singfusion.dto.QuizResultDTO;
-import com.singfusion.singfusion.entity.Questions;
-import com.singfusion.singfusion.entity.Quiz;
-import com.singfusion.singfusion.entity.QuizResult;
-import com.singfusion.singfusion.entity.Users;
+import com.singfusion.singfusion.entity.*;
 import com.singfusion.singfusion.exception.ApiRequestException;
+import com.singfusion.singfusion.repository.ConnaissanceDonneeRepository;
 import com.singfusion.singfusion.repository.QuizResultRepository;
+import com.singfusion.singfusion.repository.RapportEtonnementRepository;
 import com.singfusion.singfusion.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,15 @@ public class QuizResultServiceImpl implements QuizResultService{
     QuizResultRepository quizResultRepository;
     Date currentdate;
     Long currentTimeInMillis = System.currentTimeMillis();
+    @Autowired
+    ConnaissanceDonneeService connaissanceDonneeService;
+    @Autowired
+    ConnaissanceDonneeRepository connaissanceDonneeRepository;
+    @Autowired
+    RapportEtonnementService rapportEtonnementService;
 
+    @Autowired
+    RapportEtonnementRepository rapportEtonnementRepository;
     @Autowired
     UserRepository userRepository;
     @Override
@@ -68,7 +75,13 @@ public class QuizResultServiceImpl implements QuizResultService{
         if(quizResulTKce!=null && quizResulTKce.getIsUserSucceed()){
 //          si tout est okay on met a jour l'etat
             Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
-            users.setIsEtapes3Done(true);
+            users.setIsEtapes4done(true);
+            //mettre a jour connaisance
+            ConnaissanceDonnee connaissanceDonnee=connaissanceDonneeService.findConnaissanceDonneeByIdUsers(quizResultDTO.getUserId());
+            if (connaissanceDonnee!=null){
+                connaissanceDonnee.setIsFinished(true);
+                connaissanceDonneeRepository.save(connaissanceDonnee);
+            }
             userRepository.save(users);
         }
 
@@ -77,7 +90,13 @@ public class QuizResultServiceImpl implements QuizResultService{
         if(quizResultRapport!=null && quizResultRapport.getIsUserSucceed()){
 //          si tout est okay on met a jour l'etat
             Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
-            users.setIsEtapes3Done(true);
+            users.setIsEtapes5Done(true);
+            //mettre a jour connaisance
+            RapportEtonnement rapportEtonnement= rapportEtonnementService.findRapportEtonnementByIdUsers(quizResultDTO.getUserId());
+            if (rapportEtonnement!=null){
+                rapportEtonnement.setIsFinished(true);
+                rapportEtonnementRepository.save(rapportEtonnement);
+            }
             userRepository.save(users);
         }
 

@@ -43,6 +43,11 @@ public class IntegrationMetierController {
                 HttpStatus.OK);
     }
 
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<?> updateIntegrationMetier(@PathVariable(value = "id" ) Long id, @RequestBody IntegrationMetierDTO integrationMetierDTO){
+        return new ResponseEntity<ResponseMessage>(new ResponseMessage("ok", "Integration Metier Updated!", integrationMetierService.updateIntegrationMetier(id, integrationMetierDTO)), HttpStatus.OK);
+    }
+
     @GetMapping(value ="/findbycontenu/{id}")
     public ResponseEntity<?> getIntegrationMetierrByContenus(@PathVariable(value = "id") Long id) {
         Contenus contenus=contenusService.findContenusById(id);

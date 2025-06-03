@@ -34,7 +34,6 @@ public class IntegrationMetier {
     private Boolean isVideoWatched2=false;
     private Boolean isVideoWatched3=false;
     private Boolean isVideoWatched4=false;
-
     private Boolean isPowerPointRead=false;
     private Boolean isPowerPointRead2=false;
     private Boolean isPowerPointRead3=false;

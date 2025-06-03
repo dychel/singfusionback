@@ -24,7 +24,6 @@ public class IntegrationMetierDTO {
     private Boolean isVideoWatched2;
     private Boolean isVideoWatched3;
     private Boolean isVideoWatched4;
-
     private Boolean isPowerPointRead;
     private Boolean isPowerPointRead2;
     private Boolean isPowerPointRead3;

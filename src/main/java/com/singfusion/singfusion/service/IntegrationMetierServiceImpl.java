@@ -7,7 +7,6 @@ import com.singfusion.singfusion.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -47,9 +46,11 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
             throw new ApiRequestException("Integration Metier ID non trouvé");
         IntegrationMetier integrationMetier = modelMapper.map(integrationMetierDTO, IntegrationMetier.class);
         integrationMetier.setId(integrationMetierToUpdate.getId());
+        integrationMetier.setContenus(integrationMetierToUpdate.getContenus());
+        integrationMetier.setTitre(integrationMetierToUpdate.getTitre());
+        integrationMetier.setDescription(integrationMetier.getDescription());
         integrationMetier.setDateAjout(currentdate);
         // MAJ id users
-        //
         integrationMetier.setIsPowerPointRead(integrationMetierToUpdate.getIsPowerPointRead());
         integrationMetier.setIsPowerPointRead2(integrationMetierToUpdate.getIsPowerPointRead2());
         integrationMetier.setIsPowerPointRead3(integrationMetierToUpdate.getIsPowerPointRead3());
@@ -57,7 +58,7 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
         integrationMetier.setIsPowerPointRead5(integrationMetierToUpdate.getIsPowerPointRead5());
         integrationMetier.setIsPowerPointRead6(integrationMetierToUpdate.getIsPowerPointRead6());
         integrationMetier.setIsPowerPointRead7(integrationMetierToUpdate.getIsPowerPointRead7());
-
+        //
         integrationMetier.setIsVideoWatched(integrationMetierToUpdate.getIsVideoWatched());
         integrationMetier.setIsVideoWatched2(integrationMetierToUpdate.getIsVideoWatched2());
         integrationMetier.setIsVideoWatched3(integrationMetierToUpdate.getIsVideoWatched3());
@@ -79,7 +80,7 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
         if (integrationMetierDTO.getIsPowerPointRead5()!=null){
             integrationMetier.setIsPowerPointRead5(integrationMetierDTO.getIsPowerPointRead5());
         }
-        if (integrationMetierDTO.getIsPowerPointRead4()!=null){
+        if (integrationMetierDTO.getIsPowerPointRead6()!=null){
             integrationMetier.setIsPowerPointRead6(integrationMetierDTO.getIsPowerPointRead6());
         }
         if (integrationMetierDTO.getIsPowerPointRead7()!=null){
