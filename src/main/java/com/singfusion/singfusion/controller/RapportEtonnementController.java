@@ -27,7 +27,6 @@ public class RapportEtonnementController {
     @Autowired
     UserService userService;
 
-
     @PostMapping("/add")
     public ResponseEntity<?> createrapportEtonnementController(@RequestBody RapportEtonnementDTO rapportEtonnementDTO) {
         rapportEtonnementService.saveRapportEtonnement(rapportEtonnementDTO);
@@ -55,7 +54,7 @@ public class RapportEtonnementController {
         Users users =userService.getUserById(id);
         if (users==null)
             throw new ApiRequestException("Ce utilisateur n'existe pas");
-        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des rapport Etonnement ", rapportEtonnementService.findRapportEtonnementById(id)),
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des rapport Etonnement ", rapportEtonnementService.findRapportEtonnementByIdUsers(id)),
                 HttpStatus.OK);
     }
 

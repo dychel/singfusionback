@@ -32,6 +32,12 @@ public class RapportEtonnementServiceImpl implements RapportEtonnementService {
     @Override
     public RapportEtonnement saveRapportEtonnement(RapportEtonnementDTO rapportEtonnementDTO) {
         RapportEtonnement rapportEtonnement = modelMapper.map(rapportEtonnementDTO, RapportEtonnement.class);
+        if (rapportEtonnementDTO.getUserId() != null){
+            rapportEtonnement.setUsers(userService.getUserById(rapportEtonnementDTO.getUserId()));
+        }
+        currentdate = new Date(currentTimeInMillis);
+        rapportEtonnement.setDateAjout(currentdate);
+        rapportEtonnement.setTitre("Etape Rapport activité, utilisateur "+ rapportEtonnementDTO.getUserId());
         return rapportEtonnementRepository.save(rapportEtonnement);
     }
 
@@ -44,10 +50,9 @@ public class RapportEtonnementServiceImpl implements RapportEtonnementService {
         RapportEtonnement rapportEtonnement = modelMapper.map(rapportEtonnementDTO, RapportEtonnement.class);
         rapportEtonnement.setId(rapportEtonnementDTO.getId());
         // si tout est okay on met a jour l'etat
-        Users users = userRepository.findByIdUser(rapportEtonnementDTO.getUsersId());
+        Users users = userRepository.findByIdUser(rapportEtonnementDTO.getUserId());
         users.setIsEtapes5Done(true);
         userRepository.save(users);
-
         // MAJ id users
         updateForeignKeyUsersDocumentQuiz(rapportEtonnementDTO, rapportEtonnement);
         return rapportEtonnementRepository.save(rapportEtonnement);
@@ -58,8 +63,8 @@ public class RapportEtonnementServiceImpl implements RapportEtonnementService {
         if (rapportEtonnementDTO.getDocumentId() != null )
             rapportEtonnement.setDocument(documentService.findDocumentById(rapportEtonnementDTO.getDocumentId()));
         // mettre a jour id users si pas null
-        if (rapportEtonnementDTO.getUsersId() != null)
-            rapportEtonnement.setUsers(userService.getUserById(rapportEtonnementDTO.getUsersId()));
+        if (rapportEtonnementDTO.getUserId() != null)
+            rapportEtonnement.setUsers(userService.getUserById(rapportEtonnementDTO.getUserId()));
         if (rapportEtonnementDTO.getQuizId() != null)
             rapportEtonnement.setQuiz(quizService.findQuizById(rapportEtonnementDTO.getQuizId()));
     }
