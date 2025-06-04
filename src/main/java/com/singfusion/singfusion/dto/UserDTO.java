@@ -39,10 +39,10 @@ public class UserDTO {
 	private String titre_poste;
 	private Date datedebut;
 	private Date datefin;
-	private Boolean isEtapes1Done;
-	private Boolean isEtapes2Done;
-	private Boolean isEtapes3Done;
-	private Boolean isEtapes4done;
-	private Boolean isEtapes5Done;
+	private Boolean isEtapes1Done = false;
+	private Boolean isEtapes2Done = false;
+	private Boolean isEtapes3Done = false;
+	private Boolean isEtapes4done = false;
+	private Boolean isEtapes5Done = false;
 
 }

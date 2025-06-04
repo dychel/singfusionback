@@ -158,15 +158,14 @@ public class UserController {
 //    }
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
-        if (userService.getUserByEmail(userDTO.getEmail()) != null){
-            return new ResponseEntity<>(new ResponseMessage("exists", "This email already exists !", userDTO), HttpStatus.OK);
-        }
+//        if (userService.getUserByEmail(userDTO.getEmail()) != null){
+//            return new ResponseEntity<>(new ResponseMessage("exists", "This email already exists !", userDTO), HttpStatus.OK);
+//        }
 //        if (userService.getUserByTelephone(userDTO.getNumero_telephone()) != null)
 //            return new ResponseEntity<>(new ResponseMessage("exists", "Ce numéro exist déja!", userDTO.getNumero_telephone()), HttpStatus.OK);
         //set user chat_status to Online
         userDTO.setStatus((byte) 1);
         userService.saveUser(userDTO);
-
         //Generate token
 //        Users user = userService.getUserByEmail(userDTO.getEmail());
 //        String username = user.getUsername();

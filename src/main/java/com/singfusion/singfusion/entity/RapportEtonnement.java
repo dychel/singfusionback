@@ -17,7 +17,6 @@ public class RapportEtonnement {
     private String description;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Users users;
     @ManyToOne
     @JoinColumn(name = "document_id", referencedColumnName = "id")
