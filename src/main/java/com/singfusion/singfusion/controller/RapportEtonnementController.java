@@ -1,5 +1,4 @@
 package com.singfusion.singfusion.controller;
-import com.singfusion.singfusion.dto.ProjetDTO;
 import com.singfusion.singfusion.dto.RapportEtonnementDTO;
 import com.singfusion.singfusion.entity.*;
 import com.singfusion.singfusion.exception.ApiRequestException;

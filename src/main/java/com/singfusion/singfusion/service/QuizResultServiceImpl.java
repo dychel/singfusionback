@@ -20,7 +20,6 @@ public class QuizResultServiceImpl implements QuizResultService{
     UserService userService;
     @Autowired
     QuizService quizService;
-
     @Autowired
     QuestionsService questionsService;
     @Autowired
@@ -33,7 +32,6 @@ public class QuizResultServiceImpl implements QuizResultService{
     ConnaissanceDonneeRepository connaissanceDonneeRepository;
     @Autowired
     RapportEtonnementService rapportEtonnementService;
-
     @Autowired
     RapportEtonnementRepository rapportEtonnementRepository;
     @Autowired
@@ -53,96 +51,26 @@ public class QuizResultServiceImpl implements QuizResultService{
         //récuperer le total question
         Quiz quiz = quizService.findQuizById(quizResultDTO.getQuizId());
         quizResult.setTotalQuestion((long) quiz.getQuestions().size());
-        if (quizResultDTO.getUserId() != null)
+        if (quizResultDTO.getUserId() != null){
             quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
-        // si le quiz est reussi, on passe a l'etape suivante. Pour présentation
-        QuizResult quizResultTwo = quizResultRepository.findQuizResultByTitre("PRESENTATION", quizResultDTO.getUserId());
-        if (quizResultTwo!=null){
-            quizResultRepository.save(quizResultTwo);
-            if(quizResultTwo.getIsUserSucceed()){
-//          si tout est okay on met a jour l'etat
-                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
-                users.setIsEtapes2Done(true);
-                userRepository.save(users);
-
-                //mettre a jour intégration
-                PresentationGenerale presentationGenerale=presentationGeneraleService.findPresentationGeneraleByIdUsers(quizResultDTO.getUserId());
-                if (presentationGenerale!=null){
-                    presentationGenerale.setIsFinished(true);
-                    presentationGeneraleRepository.save(presentationGenerale);
-                }
-            }
-            quizResultRepository.delete(quizResultTwo);
+        }
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResultDTO.getTitre().equals("PRESENTATION")){
+            updateUserAndPresentation(quizResultDTO);
+        }
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResultDTO.getTitre().equals("INTEGRATIONMETIER")){
+            updateUserAndIntegration(quizResultDTO);
+        }
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResultDTO.getTitre().equals("CONNAISSANCE")){
+            updateUserAndConnaissance(quizResultDTO);
+        }
+        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
+        if (quizResultDTO.getTitre().equals("RAPPORT")){
+            updateUserAndRapport(quizResultDTO);
         }
 
-        // si le quiz est reussi, on passe a l'etape suivante. Pour Integration
-        QuizResult quizResultIntegration = quizResultRepository.findQuizResultByTitre("INTEGRATIONMETIER", quizResultDTO.getUserId());
-        if (quizResultIntegration!=null){
-            quizResultRepository.save(quizResultIntegration);
-            if(quizResultIntegration.getIsUserSucceed()){
-//          si tout est okay on met a jour l'etat
-                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
-                users.setIsEtapes3Done(true);
-                userRepository.save(users);
-                //mettre a jour intégration
-                IntegrationMetier integrationMetier=integrationMetierService.findIntegrationMetierByIdUsers(quizResultDTO.getUserId());
-                if (integrationMetier!=null){
-                    integrationMetier.setIsFinished(true);
-                    integrationMetierRepository.save(integrationMetier);
-                }
-            }
-            quizResultRepository.delete(quizResultIntegration);
-        }
-        // si le quiz est reussi, on passe a l'etape suivante. Pour Connaissance
-        QuizResult quizResulTKce = quizResultRepository.findQuizResultByTitre("CONNAISSANCE", quizResultDTO.getUserId());
-        if (quizResulTKce!=null){
-            quizResultRepository.save(quizResulTKce);
-            if(quizResulTKce.getIsUserSucceed()){
-//          si tout est okay on met a jour l'etat
-                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
-                users.setIsEtapes4done(true);
-                userRepository.save(users);
-                //mettre a jour connaisance
-                ConnaissanceDonnee connaissanceDonnee=connaissanceDonneeService.findConnaissanceDonneeByIdUsers(quizResultDTO.getUserId());
-                if (connaissanceDonnee!=null){
-                    connaissanceDonnee.setIsFinished(true);
-                    connaissanceDonneeRepository.save(connaissanceDonnee);
-                }
-            }
-            quizResultRepository.delete(quizResulTKce);
-        }
-        
-        // si le quiz est reussi, on passe a l'etape suivante. Pour Rapport activités
-        QuizResult quizResultRapport = quizResultRepository.findQuizResultByTitre("RAPPORT", quizResultDTO.getUserId());
-        if (quizResultRapport!=null){
-            quizResultRepository.save(quizResultRapport);
-            if(quizResultRapport.getIsUserSucceed()){
-//          si tout est okay on met a jour l'etat
-                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
-                users.setIsEtapes5Done(true);
-                userRepository.save(users);
-                //mettre a jour rapport
-                RapportEtonnement rapportEtonnement= rapportEtonnementService.findRapportEtonnementByIdUsers(quizResultDTO.getUserId());
-                if (rapportEtonnement!=null){
-                    rapportEtonnement.setIsFinished(true);
-                    rapportEtonnementRepository.save(rapportEtonnement);
-                }
-            }
-            quizResultRepository.delete(quizResultRapport);
-        }
-
-        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
-        if (quizResultTwo!=null)
-            quizResultRepository.delete(quizResultTwo);
-        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
-        if (quizResultIntegration!=null)
-            quizResultRepository.delete(quizResultIntegration);
-        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
-        if (quizResulTKce!=null)
-            quizResultRepository.delete(quizResulTKce);
-        //vérification si le meme quizresult existe deja, si oui on le supprime et on cree un autre.
-        if (quizResultRapport!=null)
-            quizResultRepository.delete(quizResultRapport);
         return quizResultRepository.save(quizResult);
     }
 
@@ -160,6 +88,170 @@ public class QuizResultServiceImpl implements QuizResultService{
         // MAJ id users
         updateForeignKeyUsersQuiz(quizResultDTO, quizResult);
         return quizResultRepository.save(quizResult);
+    }
+
+    private void updateUserAndConnaissance(QuizResultDTO quizResultDTO){
+        QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
+        //récuperer le total question
+        Quiz quiz = quizService.findQuizById(quizResultDTO.getQuizId());
+        quizResult.setTotalQuestion((long) quiz.getQuestions().size());
+        if (quizResultDTO.getUserId() != null){
+            quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
+        }
+
+        // si le quiz est reussi, on passe a l'etape suivante. Pour Rapport activités
+        QuizResult quizResultExists= quizResultRepository.findQuizResultByTitre("CONNAISSANCE", quizResultDTO.getUserId());
+        if (quizResultExists!=null){
+            //quizResultRepository.delete(quizResultExists);
+            // quizResultRepository.save(quizResult);
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes4done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                ConnaissanceDonnee connaissanceDonnee=connaissanceDonneeService.findConnaissanceDonneeByIdUsers(quizResultDTO.getUserId());
+                if (connaissanceDonnee!=null){
+                    connaissanceDonnee.setIsFinished(true);
+                    connaissanceDonneeRepository.save(connaissanceDonnee);
+                }
+            }
+        }else{
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes4done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                ConnaissanceDonnee connaissanceDonnee=connaissanceDonneeService.findConnaissanceDonneeByIdUsers(quizResultDTO.getUserId());
+                if (connaissanceDonnee!=null){
+                    connaissanceDonnee.setIsFinished(true);
+                    connaissanceDonneeRepository.save(connaissanceDonnee);
+                }
+            }
+        }
+    }
+    private void updateUserAndIntegration(QuizResultDTO quizResultDTO){
+        QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
+        //récuperer le total question
+        Quiz quiz = quizService.findQuizById(quizResultDTO.getQuizId());
+        quizResult.setTotalQuestion((long) quiz.getQuestions().size());
+        if (quizResultDTO.getUserId() != null){
+            quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
+        }
+        // si le quiz est reussi, on passe a l'etape suivante. Pour Rapport activités
+        QuizResult quizResultExists= quizResultRepository.findQuizResultByTitre("INTEGRATIONMETIER", quizResultDTO.getUserId());
+        if (quizResultExists!=null){
+            //quizResultRepository.delete(quizResultExists);
+           // quizResultRepository.save(quizResult);
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes3Done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                IntegrationMetier integrationMetier=integrationMetierService.findIntegrationMetierByIdUsers(quizResultDTO.getUserId());
+                if (integrationMetier!=null){
+                    integrationMetier.setIsFinished(true);
+                    integrationMetierRepository.save(integrationMetier);
+                }
+            }
+        }else{
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes3Done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                IntegrationMetier integrationMetier=integrationMetierService.findIntegrationMetierByIdUsers(quizResultDTO.getUserId());
+                if (integrationMetier!=null){
+                    integrationMetier.setIsFinished(true);
+                    integrationMetierRepository.save(integrationMetier);
+                }
+            }
+        }
+    }
+
+    private void updateUserAndPresentation(QuizResultDTO quizResultDTO){
+        QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
+        //récuperer le total question
+        Quiz quiz = quizService.findQuizById(quizResultDTO.getQuizId());
+        quizResult.setTotalQuestion((long) quiz.getQuestions().size());
+        if (quizResultDTO.getUserId() != null){
+            quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
+        }
+        // si le quiz est reussi, on passe a l'etape suivante. Pour Rapport activités
+        QuizResult quizResultExists= quizResultRepository.findQuizResultByTitre("PRESENTATION", quizResultDTO.getUserId());
+        if (quizResultExists!=null){
+            //quizResultRepository.delete(quizResultExists);
+            // quizResultRepository.save(quizResult);
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes2Done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                PresentationGenerale presentationGenerale=presentationGeneraleService.findPresentationGeneraleByIdUsers(quizResultDTO.getUserId());
+                if (presentationGenerale!=null){
+                    presentationGenerale.setIsFinished(true);
+                    presentationGeneraleRepository.save(presentationGenerale);
+                }
+            }
+        }else{
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes2Done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                PresentationGenerale presentationGenerale=presentationGeneraleService.findPresentationGeneraleByIdUsers(quizResultDTO.getUserId());
+                if (presentationGenerale!=null){
+                    presentationGenerale.setIsFinished(true);
+                    presentationGeneraleRepository.save(presentationGenerale);
+                }
+            }
+        }
+    }
+
+    private void updateUserAndRapport(QuizResultDTO quizResultDTO){
+        QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
+        //récuperer le total question
+        Quiz quiz = quizService.findQuizById(quizResultDTO.getQuizId());
+        quizResult.setTotalQuestion((long) quiz.getQuestions().size());
+        if (quizResultDTO.getUserId() != null){
+            quizResult.setUsers(userService.getUserById(quizResultDTO.getUserId()));
+        }
+        // si le quiz est reussi, on passe a l'etape suivante. Pour Rapport activités
+        QuizResult quizResultExists= quizResultRepository.findQuizResultByTitre("RAPPORT", quizResultDTO.getUserId());
+        if (quizResultExists!=null){
+            //quizResultRepository.delete(quizResultExists);
+            // quizResultRepository.save(quizResult);
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes5Done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                RapportEtonnement rapportEtonnement=rapportEtonnementService.findRapportEtonnementByIdUsers(quizResultDTO.getUserId());
+                if (rapportEtonnement!=null){
+                    rapportEtonnement.setIsFinished(true);
+                    rapportEtonnementRepository.save(rapportEtonnement);
+                }
+            }
+        }else{
+            if(quizResult.getIsUserSucceed()){
+//              si tout est okay on met a jour l'etat
+                Users users = userRepository.findByIdUser(quizResultDTO.getUserId());
+                users.setIsEtapes5Done(true);
+                userRepository.save(users);
+                //mettre a jour rapport
+                RapportEtonnement rapportEtonnement=rapportEtonnementService.findRapportEtonnementByIdUsers(quizResultDTO.getUserId());
+                if (rapportEtonnement!=null){
+                    rapportEtonnement.setIsFinished(true);
+                    rapportEtonnementRepository.save(rapportEtonnement);
+                }
+            }
+        }
     }
 
     private void updateForeignKeyUsersQuiz(QuizResultDTO quizResultDTO, QuizResult quizResult) {

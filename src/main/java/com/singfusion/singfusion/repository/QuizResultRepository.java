@@ -16,6 +16,6 @@ public interface QuizResultRepository extends JpaRepository<QuizResult,Long> {
     QuizResult findQuizResultByIdUsers(@Param("id") Long id);
     @Query("select quizResult from QuizResult quizResult where quizResult.quiz.id = :id")
     QuizResult findQuizResultByIdQuiz(@Param("id") Long id);
-    @Query("select quizResult from QuizResult quizResult where quizResult.titre = :titre and quizResult.users.id = :id order by quizResult.id desc")
+    @Query("select quizResult from QuizResult quizResult where quizResult.titre = :titre and quizResult.users.id = :id order by quizResult.id desc LIMIT 1")
     QuizResult findQuizResultByTitre(@Param("titre") String titre, @Param("id") Long id);
 }
