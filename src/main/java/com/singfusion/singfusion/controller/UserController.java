@@ -2,6 +2,7 @@ package com.singfusion.singfusion.controller;
 import com.singfusion.singfusion.dto.*;
 import com.singfusion.singfusion.entity.Users;
 import com.singfusion.singfusion.exception.ApiRequestException;
+import com.singfusion.singfusion.repository.UserRepository;
 import com.singfusion.singfusion.response.ResponseMessage;
 import com.singfusion.singfusion.response.UserResponse;
 import com.singfusion.singfusion.security.jwt.JwtProvider;
@@ -49,6 +50,9 @@ public class UserController {
     JwtProvider jwtProvider;
     @Autowired
     OtpService otpService;
+
+    @Autowired
+    UserRepository userRepository;
 
     Logger logger = LogManager.getLogger(UserController.class);
 
@@ -156,14 +160,12 @@ public class UserController {
 //        return new ResponseEntity<>(new ResponseMessage("ok", "Nombre d'utilisateurs connectés", userService.getCountConnectedUser()),
 //                HttpStatus.OK);
 //    }
+
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
-//        if (userService.getUserByEmail(userDTO.getEmail()) != null){
-//            return new ResponseEntity<>(new ResponseMessage("exists", "This email already exists !", userDTO), HttpStatus.OK);
-//        }
-//        if (userService.getUserByTelephone(userDTO.getNumero_telephone()) != null)
-//            return new ResponseEntity<>(new ResponseMessage("exists", "Ce numéro exist déja!", userDTO.getNumero_telephone()), HttpStatus.OK);
-        //set user chat_status to Online
+
+        if (userRepository.existsByEmail(userDTO.getEmail()))
+            throw new ApiRequestException("Cet email est déjà utilisé");
         userDTO.setStatus((byte) 1);
         userService.saveUser(userDTO);
         //Generate token
@@ -175,8 +177,7 @@ public class UserController {
 //        String jwt = jwtProvider.generateJwtToken(authentication);
 //        userDTO.setToken(jwt);
 //        userDTO.setPassword("");
-//        //
-//        userService.connect(user);
+////      userService.connect(user);
 //        Users user_to_display = userService.getUserByEmail(userDTO.getEmail());
 //        user_to_display.setToken(jwt);
         return new ResponseEntity<>(new ResponseMessage("crée", "Utilisateur "+ userDTO.getFirstName()+ " Créé avec succès", userDTO),

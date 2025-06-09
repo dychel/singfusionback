@@ -37,7 +37,8 @@ public class RapportEtonnementServiceImpl implements RapportEtonnementService {
         }
         currentdate = new Date(currentTimeInMillis);
         rapportEtonnement.setDateAjout(currentdate);
-        rapportEtonnement.setTitre("Etape Rapport activité, utilisateur "+ rapportEtonnementDTO.getUserId());
+        Users users = userService.getUserById(rapportEtonnementDTO.getUserId());
+        rapportEtonnement.setTitre("Etape Rapport Etonnement, utilisateur "+ users.getFirstName());
         return rapportEtonnementRepository.save(rapportEtonnement);
     }
 

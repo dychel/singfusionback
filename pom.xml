@@ -147,6 +147,27 @@
 <!--			<scope>runtime</scope>-->
 <!--		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.grails.plugins/message-digest -->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-drive -->
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-drive</artifactId>
+			<version>v3-rev197-1.25.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.auth</groupId>
+			<artifactId>google-auth-library-oauth2-http</artifactId>
+			<version>1.21.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-gson</artifactId>
+			<version>1.42.3</version>  <!-- ou la dernière version disponible -->
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

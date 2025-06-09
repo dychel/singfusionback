@@ -13,10 +13,9 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<Users, Long> {
 
     Users findByUsername(String username);
-
+    boolean existsByEmail(String email);
     @Query("select users from Users users where users.token = :token")
     Users findByToken(@Param("token") String token);
-
     @Query("select count(*) users from Users users")
     Long countUsers();
 

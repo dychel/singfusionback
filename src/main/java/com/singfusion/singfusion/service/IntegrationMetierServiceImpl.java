@@ -1,4 +1,5 @@
 package com.singfusion.singfusion.service;
+import com.singfusion.singfusion.config.Etapes;
 import com.singfusion.singfusion.dto.IntegrationMetierDTO;
 import com.singfusion.singfusion.entity.*;
 import com.singfusion.singfusion.exception.ApiRequestException;
@@ -45,9 +46,11 @@ public class IntegrationMetierServiceImpl implements IntegrationMetierService{
         if (integrationMetierDTO.getUserId() != null){
             integrationMetier.setUsers(userService.getUserById(integrationMetierDTO.getUserId()));
         }
+
         currentdate = new Date(currentTimeInMillis);
         integrationMetier.setDateAjout(currentdate);
         integrationMetier.setTitre("Etapes Integration Metier, utilisateur"+ integrationMetierDTO.getUserId());
+        integrationMetier.setEtapes(Etapes.INTEGRATION_METIER);
         return integrationMetierRepository.save(integrationMetier);
     }
 

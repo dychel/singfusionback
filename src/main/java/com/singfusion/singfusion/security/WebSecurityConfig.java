@@ -41,10 +41,10 @@ public class WebSecurityConfig {
                 //users
                 .requestMatchers("/api/singfusion/users/curr-user-details").permitAll()
                 .requestMatchers("/api/singfusion/users/logout/{id}").permitAll()
-                .requestMatchers("/api/singfusion/users/add").permitAll()
                 .requestMatchers("/api/singfusion/users/all").permitAll()
                 .requestMatchers("/api/singfusion/users/update/{id}").permitAll()
                 .requestMatchers("/api/singfusion/users/delete/{id}").permitAll()
+                .requestMatchers("/api/singfusion/users/add").permitAll()
                 //kit
                 .requestMatchers("/api/singfusion/kit/add").permitAll()
                 .requestMatchers("/api/singfusion/kit/all").permitAll()
@@ -125,6 +125,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/rapportetonnement/add").permitAll()
                 .requestMatchers("/api/singfusion/rapportetonnement/findbyuser/{id}").permitAll()
                 .requestMatchers("/api/singfusion/rapportetonnement/update/{id}").permitAll()
+                .requestMatchers("/api/singfusion/rapportetonnement/upload").permitAll()
                 //integrationmetier
                 .requestMatchers("/api/singfusion/integrationmetier/findbyid/{id}").permitAll()
                 .requestMatchers("/api/singfusion/integrationmetier/all").permitAll()
@@ -149,6 +150,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/role/all").permitAll()
                 .requestMatchers("/api/singfusion/users/authenticate").permitAll()
                 .requestMatchers("/api/singfusion/users/logout/{id}").permitAll()
+
                 .requestMatchers("/api/singfusion/users/add").permitAll()
                 .requestMatchers("/api/singfusion/users/all").permitAll()
                 .requestMatchers("/hashing").permitAll()
