@@ -16,6 +16,7 @@ public class OtpDTO {
     private Integer codeOtp;
     private String numero_telephone;
     private String password;
+    private String email;
     @Column(name="created_at")
     @CreationTimestamp
     private String createdAt;

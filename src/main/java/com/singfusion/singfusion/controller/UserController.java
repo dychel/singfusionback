@@ -243,7 +243,7 @@ public class UserController {
 
     @PutMapping("/reset-password")
     public ResponseEntity<?> updatePassword( @Valid @RequestBody OtpDTO otpDTO) {
-        return new ResponseEntity<>(new ResponseMessage("updated", "Mot de passe modifié",userService.updatePassword(otpDTO)), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(new ResponseMessage("updated", "Mot de passe modifié",userService.updatePassword(otpDTO)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/findbyusername/{username}")

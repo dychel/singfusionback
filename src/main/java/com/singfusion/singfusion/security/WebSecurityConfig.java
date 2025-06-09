@@ -150,9 +150,9 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/singfusion/role/all").permitAll()
                 .requestMatchers("/api/singfusion/users/authenticate").permitAll()
                 .requestMatchers("/api/singfusion/users/logout/{id}").permitAll()
-
-                .requestMatchers("/api/singfusion/users/add").permitAll()
                 .requestMatchers("/api/singfusion/users/all").permitAll()
+                .requestMatchers("/api/singfusion/users/add").permitAll()
+                .requestMatchers("/api/singfusion/users/reset-password").permitAll()
                 .requestMatchers("/hashing").permitAll()
                 .requestMatchers("/create-payment-intent").permitAll()
                 .requestMatchers("/").permitAll()

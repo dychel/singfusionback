@@ -90,9 +90,9 @@ public class UserServiceImpl implements UserService {
     public Users updatePassword(OtpDTO otpDTO) {
         //update password
         String pwd = "test";
-        Users userToUpdate = userRepository.findByTelephone(otpDTO.getNumero_telephone());
+        Users userToUpdate = userRepository.findByEmail(otpDTO.getEmail());
         if (userToUpdate==null)
-            throw new ApiRequestException("user not found by phone number");
+            throw new ApiRequestException("user not found by Email");
         //update user password
         //Users user = modelMapper.map(otpDTO, Users.class);
         userToUpdate.setId(userToUpdate.getId());
