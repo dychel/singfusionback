@@ -13,19 +13,25 @@ public class RapportEtonnement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String titre;
     private String description;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
+
     @ManyToOne
     @JoinColumn(name = "document_id", referencedColumnName = "id")
     private Document document;
+
     @ManyToOne
     @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
+
     private Date DateAjout;
-    private Boolean isFinished=false;
+
+    private Boolean isFinished = false;
 
     public RapportEtonnement(Long id, String titre, String description, Users users, Document document, Quiz quiz, Date dateAjout, Boolean isFinished) {
         this.id = id;

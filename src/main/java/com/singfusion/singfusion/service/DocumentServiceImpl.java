@@ -61,7 +61,7 @@ public class DocumentServiceImpl implements DocumentService {
         Users users = userService.getUserById(id);
         if (users == null)
             throw new ApiRequestException("User non trouvé");
-        return documentRepository.findByIdDocument(id);
+        return documentRepository.findDocumentByIdUsers(id);
     }
 
     @Override

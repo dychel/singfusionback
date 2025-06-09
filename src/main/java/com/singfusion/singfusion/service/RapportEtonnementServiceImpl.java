@@ -2,11 +2,14 @@ package com.singfusion.singfusion.service;
 import com.singfusion.singfusion.dto.RapportEtonnementDTO;
 import com.singfusion.singfusion.entity.*;
 import com.singfusion.singfusion.exception.ApiRequestException;
+import com.singfusion.singfusion.repository.DocumentRepository;
 import com.singfusion.singfusion.repository.RapportEtonnementRepository;
 import com.singfusion.singfusion.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -27,19 +30,37 @@ public class RapportEtonnementServiceImpl implements RapportEtonnementService {
     Long currentTimeInMillis = System.currentTimeMillis();
 
     @Autowired
+    private DocumentRepository documentRepository;
+
+    @Autowired
     UserRepository userRepository;
 
-    @Override
-    public RapportEtonnement saveRapportEtonnement(RapportEtonnementDTO rapportEtonnementDTO) {
-        RapportEtonnement rapportEtonnement = modelMapper.map(rapportEtonnementDTO, RapportEtonnement.class);
-        if (rapportEtonnementDTO.getUserId() != null){
-            rapportEtonnement.setUsers(userService.getUserById(rapportEtonnementDTO.getUserId()));
-        }
-        currentdate = new Date(currentTimeInMillis);
-        rapportEtonnement.setDateAjout(currentdate);
-        Users users = userService.getUserById(rapportEtonnementDTO.getUserId());
-        rapportEtonnement.setTitre("Etape Rapport Etonnement, utilisateur "+ users.getFirstName());
-        return rapportEtonnementRepository.save(rapportEtonnement);
+    public RapportEtonnement saveRapportEtonnement(RapportEtonnementDTO dto) throws IOException {
+        Users user = userService.getUserById(dto.getUserId());
+        // Création Document
+        Document doc = new Document();
+        doc.setTitre(dto.getFichier() != null ? dto.getFichier().getOriginalFilename() : null);
+        doc.setFormat(dto.getFichier() != null ? dto.getFichier().getContentType() : null);
+        doc.setContenu(dto.getFichier() != null ? dto.getFichier().getBytes() : null);
+        doc.setDateAjout(new Date());
+        doc.setUsers(user);
+        doc.setEtapes("Rapport Etonnement");
+        Document savedDoc = documentRepository.save(doc);
+
+        // Création Rapport
+        RapportEtonnement rapport = modelMapper.map(dto, RapportEtonnement.class);
+//        RapportEtonnement rapportEtonnementExist = rapportEtonnementRepository.findRapportByIdUsers(dto.getUserId());
+//        if (rapportEtonnementExist!=null){
+//            rapport.setQuiz(rapportEtonnementExist.getQuiz());
+//        }
+        rapport.setDescription(dto.getDescription());
+        rapport.setUsers(user);
+        rapport.setDocument(savedDoc);
+        rapport.setTitre("Rapport Etonnement utilisateur " + user.getId());
+        rapport.setDateAjout(new Date());
+        rapport.setIsFinished(false);
+
+        return rapportEtonnementRepository.save(rapport);
     }
 
     @Override

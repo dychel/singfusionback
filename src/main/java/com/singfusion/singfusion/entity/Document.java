@@ -13,44 +13,53 @@ public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String titre;
     private String intitule;
     private String format;
-    private File file;
+
+    @Lob
+    private byte[] contenu;
+
     private Date dateAjout;
+
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private Users users;
-    private Etapes etapes;
 
-    public Document(Long id, String titre, String intitule, String format, File file, Date dateAjout, Users users, Etapes etapes) {
+    private String etapes;
+
+    // getters / setters
+
+    public Document(Long id, String titre, String intitule, String format, byte[] contenu, Date dateAjout, Users users, String etapes) {
         this.id = id;
         this.titre = titre;
         this.intitule = intitule;
         this.format = format;
-        this.file = file;
+        this.contenu = contenu;
         this.dateAjout = dateAjout;
         this.users = users;
         this.etapes = etapes;
     }
 
-    public Document(String titre, String intitule, String format, File file, Date dateAjout, Users users, Etapes etapes) {
+    public Document(String titre, String intitule, String format, byte[] contenu, Date dateAjout, Users users, String etapes) {
         this.titre = titre;
         this.intitule = intitule;
         this.format = format;
-        this.file = file;
+        this.contenu = contenu;
         this.dateAjout = dateAjout;
         this.users = users;
         this.etapes = etapes;
     }
 
-    public Document(Long id, String titre, String intitule, String format, File file, Date dateAjout, Etapes etapes) {
+    public Document(Long id, String titre, String intitule, String format, byte[] contenu, Date dateAjout, String etapes) {
         this.id = id;
         this.titre = titre;
         this.intitule = intitule;
         this.format = format;
-        this.file = file;
+        this.contenu = contenu;
         this.dateAjout = dateAjout;
         this.etapes = etapes;
     }
+
 }

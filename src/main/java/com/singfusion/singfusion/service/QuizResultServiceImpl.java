@@ -6,6 +6,7 @@ import com.singfusion.singfusion.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Date;
@@ -212,7 +213,7 @@ public class QuizResultServiceImpl implements QuizResultService{
             }
         }
     }
-
+    @Transactional
     private void updateUserAndRapport(QuizResultDTO quizResultDTO){
         QuizResult quizResult = modelMapper.map(quizResultDTO, QuizResult.class);
         //récuperer le total question

@@ -11,8 +11,6 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 
     @Query("select document from Document document where document.id = :id")
     Document findByIdDocument(@Param("id") Long id);
-    @Query("select document from Document document where document.id != :id")
-    Projet findByIdDifferentDocument(@Param("id") Long id);
-    @Query("select document from Document document where document.users.id = :id")
-    Projet findDocumentByIdUsers(@Param("id") Long id);
+    @Query("select document from Document document where document.users.id = :id order by document.id desc LIMIT 1")
+    Document findDocumentByIdUsers(@Param("id") Long id);
 }

@@ -39,7 +39,7 @@ public class DocumentController {
         Users users =userService.getUserById(id);
         if (users==null)
             throw new ApiRequestException("Ce utilisateur n'existe pas");
-        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des documents ", documentService.findDocumentById(id)),
+        return new ResponseEntity<>(new ResponseMessage("ok", "Liste des documents ", documentService.findDocumentByIdUsers(id)),
                 HttpStatus.OK);
     }
 

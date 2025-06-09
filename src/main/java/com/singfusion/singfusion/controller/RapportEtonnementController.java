@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
@@ -27,10 +30,18 @@ public class RapportEtonnementController {
     UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> createrapportEtonnementController(@RequestBody RapportEtonnementDTO rapportEtonnementDTO) {
-        rapportEtonnementService.saveRapportEtonnement(rapportEtonnementDTO);
-        return new ResponseEntity<>(new ResponseMessage("ok", "rapport "+ rapportEtonnementDTO.getTitre()+ " Créé avec succès", rapportEtonnementDTO),
-                HttpStatus.OK);
+    public ResponseEntity<RapportEtonnement> addRapport(
+            @RequestParam("description") String description,
+            @RequestParam("userId") Long userId,
+            @RequestParam(value = "fichier", required = false) MultipartFile fichier
+    ) throws IOException {
+        RapportEtonnementDTO dto = new RapportEtonnementDTO();
+        dto.setDescription(description);
+        dto.setUserId(userId);
+        dto.setFichier(fichier);
+
+        RapportEtonnement saved = rapportEtonnementService.saveRapportEtonnement(dto);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping(value ="/all")
