@@ -59,12 +59,12 @@ public class ConnaissanceDonnee {
         IsFinished = isFinished;
     }
 
-    public ConnaissanceDonnee(Long id, String titre, String description, Users users, String objectif, String contexte, String methodologieConsultation, String conseil, Quiz quiz, Date dateAjout, Boolean isFinished) {
+    public ConnaissanceDonnee(Long id, String titre, String description, Document document, Users users, String contexte, String methodologieConsultation, String conseil, Quiz quiz, Date dateAjout, Boolean isFinished) {
         this.id = id;
         this.titre = titre;
         this.description = description;
+        this.document = document;
         this.users = users;
-        this.objectif = objectif;
         this.contexte = contexte;
         this.methodologieConsultation = methodologieConsultation;
         this.conseil = conseil;
@@ -73,11 +73,12 @@ public class ConnaissanceDonnee {
         IsFinished = isFinished;
     }
 
-    public ConnaissanceDonnee(Long id, String titre, String description, Document document, String objectif, String contexte, String methodologieConsultation, String conseil, Quiz quiz, Date dateAjout, Boolean isFinished) {
+    public ConnaissanceDonnee(Long id, String titre, String description, Users users, String objectif, String contexte, String methodologieConsultation, String conseil, Quiz quiz, Date dateAjout, Boolean isFinished) {
+
         this.id = id;
         this.titre = titre;
         this.description = description;
-        this.document = document;
+        this.users = users;
         this.objectif = objectif;
         this.contexte = contexte;
         this.methodologieConsultation = methodologieConsultation;
